@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: globalFormData.siteInfo.title,
   description: globalFormData.siteInfo.description,
 };
-
+//
 export default function RootLayout({
   children,
 }: Readonly<{
