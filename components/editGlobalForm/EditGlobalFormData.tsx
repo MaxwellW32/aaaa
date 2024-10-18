@@ -1,5 +1,5 @@
 "use client"
-import { globalFormDataJotaiGlobal } from '@/app/globalState'
+import { globalFormDataJotaiGlobal } from '@/globalState'
 import { useAtom } from 'jotai'
 import React, { useState, useEffect } from 'react'
 import styles from "./style.module.css"
@@ -13,9 +13,14 @@ export default function EditGlobalFormData() {
     const [currentPage, currentPageSet] = useState("home")
 
     useEffect(() => {
+        //always copy whats in globalFormData.tsx
         window.parent.postMessage({
             fromTemplate: "aaaa",
-            info: globalFormDataJotai
+            info: `
+import { globalFormDataType } from "@/types";
+
+export const globalFormData: globalFormDataType = ${JSON.stringify(globalFormDataJotai, null, 2)}
+`
         }, "*")
     }, [globalFormDataJotai])
 
