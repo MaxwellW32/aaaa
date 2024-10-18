@@ -16,7 +16,7 @@ export default function EditGlobalFormData() {
         //always copy whats in globalFormData.tsx
         window.parent.postMessage({
             fromTemplate: "aaaa",
-            info: `
+            data: `
 import { globalFormDataType } from "@/types";
 
 export const globalFormData: globalFormDataType = ${JSON.stringify(globalFormDataJotai, null, 2)}
