@@ -9,7 +9,7 @@ import styles from "./style.module.css"
 
 export default function EditGlobalFormData() {
     const [globalFormDataJotai, globalFormDataJotaiSet] = useAtom(globalFormDataJotaiGlobal)
-    const [showingForm, showingFormSet] = useState(true)
+    const [showingForm, showingFormSet] = useState(false)
     const [currentPage, currentPageSet] = useState("home")
 
     useEffect(() => {
