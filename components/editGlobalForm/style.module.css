@@ -1,0 +1,14 @@
+.formCont {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: grid;
+    width: max-content;
+}
+
+.form {
+    width: min(1000px, 90vw);
+    display: grid;
+    background-color: aliceblue;
+    padding: 1rem;
+}
