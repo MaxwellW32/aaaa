@@ -1,11 +1,15 @@
 import { globalFormDataType } from "@/types";
 
 export const globalFormData: globalFormDataType = {
+    // always have a site info variable across projects
     siteInfo: {
         name: "testWebsite1",
+        fonts: [],
+
         title: "testWebsite1",
         description: "this is a testWebsite1",
-        favIcon: ""
+        favIcon: "",
+        colors: [],
     },
     pages: {
         home: {

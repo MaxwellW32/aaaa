@@ -13,14 +13,10 @@ export default function EditGlobalFormData() {
     const [currentPage, currentPageSet] = useState("home")
 
     useEffect(() => {
-        //always copy whats in globalFormData.tsx
+        //mirror of whats in globalFormData.tsx
         window.parent.postMessage({
             fromTemplate: "aaaa",
-            data: `
-import { globalFormDataType } from "@/types";
-
-export const globalFormData: globalFormDataType = ${JSON.stringify(globalFormDataJotai, null, 2)}
-`
+            data: globalFormDataJotai
         }, "*")
     }, [globalFormDataJotai])
 

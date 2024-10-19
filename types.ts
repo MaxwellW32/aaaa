@@ -1,26 +1,28 @@
 export type globalFormDataType = {
     siteInfo: {
-        name: string;
-        title: string;
-        description: string;
-        favIcon: string;
-    };
+        name: string,
+        title: string,
+        description: string,
+        favIcon: string,
+        colors: string[],
+        fonts: string[],
+    },
     pages: {
-        [key: string]: {
-            [key: string]: formInputObj
+        [key: string]: {//each page
+            [key: string]: formInputObj //each section
         }
-    };
+    },
     navLinks: {
-        title: string;
-        link: string;
+        title: string,
+        link: string,
     }[]
 }
 
-export type formInputObj = {
-    label?: string;
-    placeHolder?: string;
-    type?: string;
-    using?: boolean;
-    inputType?: "input" | "textarea" | "checkbox";
+export type formInputObj = {//each possible type of input
+    label?: string,
+    placeHolder?: string,
+    type?: string,
+    using?: boolean,
+    inputType?: "input" | "textarea" | "checkbox",
     value: string
 }
