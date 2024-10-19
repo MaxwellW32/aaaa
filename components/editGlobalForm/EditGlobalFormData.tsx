@@ -3,22 +3,62 @@ import { globalFormDataJotaiGlobal } from '@/jotai'
 import { useAtom } from 'jotai'
 import React, { useState, useEffect } from 'react'
 import styles from "./style.module.css"
+import { globalFormDataType, syncFromServerSchema } from '@/types'
 
 //this handles all form info for the website
 //sends a copy of it to the main website
+
+//main sends a sync request - object containing a key called "sentGlobalFormData"
+//if its null do nothing - else set global form data
+//send back data to server as normal
 
 export default function EditGlobalFormData() {
     const [globalFormDataJotai, globalFormDataJotaiSet] = useAtom(globalFormDataJotaiGlobal)
     const [showingForm, showingFormSet] = useState(false)
     const [currentPage, currentPageSet] = useState("home")
 
+    const [receivedSyncData, receivedSyncDataSet] = useState<boolean>(false)
+
+    //check and load save data
     useEffect(() => {
+        function handleMessage(message: MessageEvent<unknown>) {
+            try {
+                //start reading once we see a sentGlobalFormData
+                const seenResponse = message.data
+                const seenglobalFormData = syncFromServerSchema.parse(seenResponse)
+
+                //set form data - make it match schema
+                if (seenglobalFormData.sentGlobalFormData !== null) {
+                    // put a proper schema check
+                    globalFormDataJotaiSet(seenglobalFormData.sentGlobalFormData as globalFormDataType)
+                }
+
+                console.log(`$template got sync request`);
+
+                receivedSyncDataSet(true)
+
+            } catch (error) {
+                console.log(`$error reading form from parent`, error);
+            }
+        }
+
+        window.addEventListener("message", handleMessage)
+
+        return () => {
+            window.removeEventListener("message", handleMessage)
+        }
+    }, [])
+
+    //send current form to main website
+    useEffect(() => {
+        if (!receivedSyncData) return
+
         //mirror of whats in globalFormData.tsx
         window.parent.postMessage({
             fromTemplate: "aaaa",
             globalFormData: globalFormDataJotai
         }, "*")
-    }, [globalFormDataJotai])
+    }, [receivedSyncData, globalFormDataJotai])
 
     return (
         <div className={styles.formCont}>

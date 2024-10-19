@@ -1,3 +1,16 @@
+import { z } from "zod";
+
+//the data type for all templates globalFormData obj
+export const syncFromServerSchema = z.object({
+    sentGlobalFormData: z.object({}).passthrough().nullable()
+})
+export type syncFromServerType = z.infer<typeof syncFromServerSchema>
+
+
+
+
+
+
 export type globalFormDataType = {
     siteInfo: {
         [key: string]: string | string[],
