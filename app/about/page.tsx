@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import { useAtom } from 'jotai'
-import { globalFormDataJotaiGlobal } from '../../globalState'
+import { globalFormDataJotaiGlobal } from '@/jotai'
 
 export default function Page() {
     const [globalFormDataJotai,] = useAtom(globalFormDataJotaiGlobal)

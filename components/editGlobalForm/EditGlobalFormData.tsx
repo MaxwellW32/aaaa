@@ -1,5 +1,5 @@
 "use client"
-import { globalFormDataJotaiGlobal } from '@/globalState'
+import { globalFormDataJotaiGlobal } from '@/jotai'
 import { useAtom } from 'jotai'
 import React, { useState, useEffect } from 'react'
 import styles from "./style.module.css"
@@ -16,7 +16,7 @@ export default function EditGlobalFormData() {
         //mirror of whats in globalFormData.tsx
         window.parent.postMessage({
             fromTemplate: "aaaa",
-            data: globalFormDataJotai
+            globalFormData: globalFormDataJotai
         }, "*")
     }, [globalFormDataJotai])
 
@@ -35,6 +35,34 @@ export default function EditGlobalFormData() {
             <form style={{ display: showingForm ? "" : "none" }} className={styles.form} action={() => { }}>
                 <h1>Customize your site</h1>
 
+                {/* site info */}
+                {Object.entries(globalFormDataJotai.siteInfo).map(eachEntry => {
+                    const eachKey = eachEntry[0]
+                    const eachValue = eachEntry[1]
+
+                    if (typeof eachValue === "object") return null
+
+                    return (
+                        <div key={eachKey}>
+                            <label>Customize site {eachKey}</label>
+
+                            <input type={"text"} name={eachKey} value={eachValue} placeholder={eachKey} onChange={(e) => {
+                                globalFormDataJotaiSet(prevData => {
+                                    const newData = { ...prevData }
+
+                                    if (typeof newData.siteInfo[eachKey] === "string") {
+                                        newData.siteInfo[eachKey] = e.target.value
+                                    }
+
+                                    return newData
+                                })
+                            }} />
+                        </div>
+                    )
+                })}
+
+                <h1>Customize page info</h1>
+
                 {/* page selection */}
                 <div style={{ display: "flex", gap: ".5rem", alignItems: "center" }}>
                     {Object.entries(globalFormDataJotai.pages).map(eachEntry => {
@@ -50,7 +78,7 @@ export default function EditGlobalFormData() {
                     })}
                 </div>
 
-                {/* form inputs */}
+                {/* form page inputs */}
                 {Object.entries(globalFormDataJotai.pages).map(eachEntry => {
                     const eachPageName = eachEntry[0]
                     //e.g Home

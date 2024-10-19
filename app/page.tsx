@@ -1,6 +1,6 @@
 "use client"
 import { useAtom } from "jotai";
-import { globalFormDataJotaiGlobal } from "../globalState";
+import { globalFormDataJotaiGlobal } from "@/jotai";
 
 export default function Home() {
   const [globalFormDataJotai,] = useAtom(globalFormDataJotaiGlobal)

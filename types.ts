@@ -1,5 +1,6 @@
 export type globalFormDataType = {
     siteInfo: {
+        [key: string]: string | string[],
         name: string,
         title: string,
         description: string,
