@@ -13,33 +13,37 @@ export const globalFormData: globalFormDataType = {
     },
     pages: {
         home: {
-            sectionCont: {
-                using: true,
-                label: "Section Cont",
-                inputType: "checkbox",
-                value: "",
-            },
             section1: {
-                value: "section1"
-            },
-            section2: {
-                value: "section2"
-            },
-            section3: {
-                value: "section3"
+                using: true,
+                inputs: {
+                    text1: {
+                        value: "lorem"
+                    },
+                    text2: {
+                        value: "ipsum"
+                    },
+                    text3: {
+                        value: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae doloremque qui laudantium harum explicabo nostrum dolorum, quibusdam totam nulla praesentium nemo ex aperiam ad, sit eum doloribus animi natus tenetur."
+                    },
+                }
             },
         },
         about: {
             section1: {
-                value: "about section1"
+                using: true,
+                inputs: {
+                    text1: {
+                        value: "about page lorem"
+                    },
+                    text2: {
+                        value: "ipsum"
+                    },
+                    text3: {
+                        value: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae doloremque qui laudantium harum explicabo nostrum dolorum, quibusdam totam nulla praesentium nemo ex aperiam ad, sit eum doloribus animi natus tenetur."
+                    },
+                }
             },
-            section2: {
-                value: "about section2"
-            },
-            section3: {
-                value: "about section3"
-            },
-        }
+        },
     },
     navLinks: [
         {

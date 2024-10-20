@@ -7,12 +7,13 @@ export default function Home() {
 
   return (
     <div>
-      <h1>sections</h1>
-      {globalFormDataJotai.pages.home.sectionCont.using && (
+      <h1>Welcome</h1>
+
+      {globalFormDataJotai.pages.home.section1.using && (
         <>
-          <p>{globalFormDataJotai.pages.home.section1.value}</p>
-          <p>{globalFormDataJotai.pages.home.section2.value}</p>
-          <p>{globalFormDataJotai.pages.home.section3.value}</p>
+          <p>{globalFormDataJotai.pages.home.section1.inputs.text1.value}</p>
+          <p>{globalFormDataJotai.pages.home.section1.inputs.text2.value}</p>
+          <p>{globalFormDataJotai.pages.home.section1.inputs.text3.value}</p>
         </>
       )}
     </div>

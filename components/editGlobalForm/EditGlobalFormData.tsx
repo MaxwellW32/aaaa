@@ -3,7 +3,7 @@ import { globalFormDataJotaiGlobal } from '@/jotai'
 import { useAtom } from 'jotai'
 import React, { useState, useEffect } from 'react'
 import styles from "./style.module.css"
-import { globalFormDataType, syncFromServerSchema } from '@/types'
+import { globalFormDataType, siteInfoKeys, syncFromServerSchema } from '@/types'
 
 //this handles all form info for the website
 //sends a copy of it to the main website
@@ -25,12 +25,11 @@ export default function EditGlobalFormData() {
             try {
                 //start reading once we see a sentGlobalFormData
                 const seenResponse = message.data
-                const seenglobalFormData = syncFromServerSchema.parse(seenResponse)
+                const seenServerSyncData = syncFromServerSchema.parse(seenResponse)
 
                 //set form data - make it match schema
-                if (seenglobalFormData.sentGlobalFormData !== null) {
-                    // put a proper schema check
-                    globalFormDataJotaiSet(seenglobalFormData.sentGlobalFormData as globalFormDataType)
+                if (seenServerSyncData.sentGlobalFormData !== null) {
+                    globalFormDataJotaiSet(seenServerSyncData.sentGlobalFormData)
                 }
 
                 console.log(`$template got sync request`);
@@ -77,7 +76,7 @@ export default function EditGlobalFormData() {
 
                 {/* site info */}
                 {Object.entries(globalFormDataJotai.siteInfo).map(eachEntry => {
-                    const eachKey = eachEntry[0]
+                    const eachKey = eachEntry[0] as siteInfoKeys
                     const eachValue = eachEntry[1]
 
                     if (typeof eachValue === "object") return null
@@ -90,8 +89,10 @@ export default function EditGlobalFormData() {
                                 globalFormDataJotaiSet(prevData => {
                                     const newData = { ...prevData }
 
-                                    if (typeof newData.siteInfo[eachKey] === "string") {
-                                        newData.siteInfo[eachKey] = e.target.value
+                                    let siteInfoObj = newData.siteInfo[eachKey] //just here for typescript
+
+                                    if (typeof siteInfoObj === "string") {
+                                        siteInfoObj = e.target.value
                                     }
 
                                     return newData
@@ -109,7 +110,7 @@ export default function EditGlobalFormData() {
                         const eachPage = eachEntry[0]
 
                         return (
-                            <button key={eachPage}
+                            <button key={eachPage} style={{ color: eachPage === currentPage ? "blue" : "" }}
                                 onClick={() => {
                                     currentPageSet(eachPage)
                                 }}
@@ -120,57 +121,67 @@ export default function EditGlobalFormData() {
 
                 {/* form page inputs */}
                 {Object.entries(globalFormDataJotai.pages).map(eachEntry => {
-                    const eachPageName = eachEntry[0]
-                    //e.g Home
+                    const eachPageName = eachEntry[0] //e.g Home
                     const pageSections = eachEntry[1]
 
-                    return Object.entries(pageSections).map(eachSmallEntry => {
-                        const eachSectionId = eachSmallEntry[0]
-                        //e.g idA
-                        const eachSectionValue = eachSmallEntry[1] //string value
+                    return Object.entries(pageSections).map(eachSectionEntry => {
+                        const eachSectionName = eachSectionEntry[0] //e.g section 1
+                        const eachSectionObj = eachSectionEntry[1]
 
                         return (
-                            <div key={eachSectionId} style={{ display: currentPage === eachPageName ? "" : "none" }}>
-                                {eachSectionValue.label !== undefined && <label className={styles.label} htmlFor={eachSectionId}>{eachSectionValue.label}</label>}
+                            <div key={eachSectionName} style={{ display: currentPage === eachPageName ? "" : "none" }}>
+                                <div>
+                                    <p>{eachSectionObj.using === true ? `Using ${eachSectionObj.label ?? "section"} ` : `not Using ${eachSectionObj.label ?? "section"} `}</p>
 
-                                {eachSectionValue.inputType === undefined || eachSectionValue.inputType === "input" ? (
-                                    <input id={eachSectionId} type={eachSectionValue.type === undefined ? "text" : eachSectionValue.type} name={eachSectionId} value={eachSectionValue.value} placeholder={eachSectionValue.placeHolder ?? ""} onChange={(e) => {
-                                        globalFormDataJotaiSet(prevData => {
-                                            const newData = { ...prevData }
-                                            newData.pages[eachPageName][eachSectionId].value = e.target.value
-                                            return newData
-                                        })
-                                    }} />
-                                ) : eachSectionValue.inputType === "textarea" ? (
-                                    <textarea rows={5} id={eachSectionId} name={eachSectionId} value={eachSectionValue.value} placeholder={eachSectionValue.placeHolder ?? ""} onInput={(e) => {
-                                        globalFormDataJotaiSet(prevData => {
-                                            const newData = { ...prevData }
-                                            //@ts-expect-error value exits on text area
-                                            newData.pages[eachPageName][eachSectionId].value = e.target.value
-                                            return newData
-                                        })
-                                    }} ></textarea>
-                                ) : eachSectionValue.inputType === "checkbox" ? (
-                                    <div>
-                                        <button
-                                            onClick={() => {
-                                                globalFormDataJotaiSet(prevData => {
-                                                    const newData = { ...prevData }
-                                                    if (newData.pages[eachPageName][eachSectionId].using === undefined) {
-                                                        newData.pages[eachPageName][eachSectionId].using = false
-                                                    } else {
-                                                        newData.pages[eachPageName][eachSectionId].using = !newData.pages[eachPageName][eachSectionId].using
-                                                    }
-                                                    return newData
-                                                })
-                                            }}
-                                        >
-                                            <p>{eachSectionValue.using === true ? `Using ${eachSectionValue.label} ` : `not Using ${eachSectionValue.label} `}</p>
-                                        </button>
-                                    </div>
-                                ) : null}
+                                    <button
+                                        onClick={() => {
+                                            globalFormDataJotaiSet(prevData => {
+                                                const newData = { ...prevData }
+                                                if (newData.pages[eachPageName][eachSectionName].using === undefined) {
+                                                    newData.pages[eachPageName][eachSectionName].using = false
 
-                                {/* {errors !== undefined && <p style={{ color: "red", fontSize: "var(--smallFontSize)" }}>{errors}</p>} */}
+                                                } else {
+                                                    newData.pages[eachPageName][eachSectionName].using = !newData.pages[eachPageName][eachSectionName].using
+                                                }
+                                                return newData
+                                            })
+                                        }}
+                                    >Toggle use
+                                    </button>
+                                </div>
+
+                                {Object.entries(eachSectionObj.inputs).map(eachInputEntry => {
+                                    const inputId = eachInputEntry[0] //each input id/name
+                                    const inputObj = eachInputEntry[1]
+
+                                    return (
+                                        <div key={inputId}>
+                                            {inputObj.label !== undefined && <label className={styles.label} htmlFor={inputId}>{inputObj.label}</label>}
+
+                                            {inputObj.inputType === undefined || inputObj.inputType === "input" ? (
+                                                <input id={inputId} type={inputObj.type === undefined ? "text" : inputObj.type} name={inputId} value={inputObj.value} placeholder={inputObj.placeHolder ?? ""} onChange={(e) => {
+                                                    globalFormDataJotaiSet(prevData => {
+                                                        const newData = { ...prevData }
+                                                        newData.pages[eachPageName][eachSectionName].inputs[inputId].value = e.target.value
+                                                        return newData
+                                                    })
+                                                }} />
+                                            ) : inputObj.inputType === "textarea" ? (
+                                                <textarea rows={5} id={inputId} name={inputId} value={inputObj.value} placeholder={inputObj.placeHolder ?? ""} onInput={(e) => {
+                                                    globalFormDataJotaiSet(prevData => {
+                                                        const newData = { ...prevData }
+                                                        //@ts-expect-error value exits on text area
+                                                        newData.pages[eachPageName][eachSectionName].inputs[inputId].value = e.target.value
+                                                        return newData
+                                                    })
+                                                }} ></textarea>
+
+                                            ) : null}
+
+                                            {/* {errors !== undefined && <p style={{ color: "red", fontSize: "var(--smallFontSize)" }}>{errors}</p>} */}
+                                        </div>
+                                    )
+                                })}
                             </div>
                         )
                     })

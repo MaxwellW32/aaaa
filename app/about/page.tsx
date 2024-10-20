@@ -1,7 +1,9 @@
 "use client"
+//replace
 import React from 'react'
 import { useAtom } from 'jotai'
 import { globalFormDataJotaiGlobal } from '@/jotai'
+import { globalFormData } from '@/globalFormData'
 
 export default function Page() {
     const [globalFormDataJotai,] = useAtom(globalFormDataJotaiGlobal)
@@ -9,9 +11,9 @@ export default function Page() {
     return (
         <div>
             <h1>About</h1>
-            <p>{globalFormDataJotai.pages.about.section1.value}</p>
-            <p>{globalFormDataJotai.pages.about.section2.value}</p>
-            <p>{globalFormDataJotai.pages.about.section3.value}</p>
+            <p>{globalFormData.pages.about.section1.inputs.text1.value}</p>
+            <p>{globalFormDataJotai.pages.about.section1.inputs.text2.value}</p>
+            <p>{globalFormDataJotai.pages.about.section1.inputs.text3.value}</p>
         </div>
     )
 }
