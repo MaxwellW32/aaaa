@@ -3,7 +3,7 @@ import { globalFormDataJotaiGlobal } from '@/jotai'
 import { useAtom } from 'jotai'
 import React, { useState, useEffect } from 'react'
 import styles from "./style.module.css"
-import { globalFormDataType, siteInfoKeys, syncFromServerSchema } from '@/types'
+import { siteInfoKeys, syncFromServerSchema } from '@/types'
 
 //this handles all form info for the website
 //sends a copy of it to the main website
