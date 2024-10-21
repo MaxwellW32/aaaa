@@ -122,10 +122,16 @@ export default function EditGlobalFormData() {
                                                             globalFormDataJotaiSet(prevData => {
                                                                 const newData = { ...prevData }
 
-                                                                let siteInfoObj = newData.siteInfo[siteInfoKey] //just here for typescript
+                                                                if (typeof newData.siteInfo[siteInfoKey] === "string") {
+                                                                    let seenText = e.target.value
 
-                                                                if (typeof siteInfoObj === "string") {
-                                                                    siteInfoObj = e.target.value
+                                                                    // ensure website name is hyphenated
+                                                                    if (siteInfoKey === "name") {
+                                                                        seenText = seenText.replace(/\s+/g, '-')
+                                                                    }
+
+                                                                    //@ts-expect-error typescript not seeing difference
+                                                                    newData.siteInfo[siteInfoKey] = seenText
                                                                 }
 
                                                                 return newData
