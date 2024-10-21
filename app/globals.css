@@ -2,10 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {}
+:root {
+  /* colors */
+  --color1: var(--color1);
+  --color2: var(--color2);
+  --color3: var(--color3);
+  --color4: var(--color4);
+  --color5: var(--color5);
+}
 
 *,
 *::before,
 *::after {
-  border: 1px solid red !important;
+  /* border: 1px solid red !important; */
 }

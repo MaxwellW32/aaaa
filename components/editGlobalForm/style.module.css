@@ -1,4 +1,15 @@
 .formCont {
+    /* 1 color */
+    --color1: #a9d7ff;
+    --gray1: #ddd;
+    --gray2: #333;
+    --padSml: 1rem;
+    --padLrg: 1rem;
+    --transitionSml: 1rem;
+    --mediumFontWeight: 700;
+
+
+
     position: fixed;
     bottom: 0;
     right: 0;
@@ -8,7 +19,70 @@
 
 .form {
     width: min(1000px, 90vw);
+    height: 60vh;
+    overflow-y: auto;
     display: grid;
-    background-color: aliceblue;
-    padding: 1rem;
+    padding: var(--padSml);
+    background-color: #fff;
+    border: 1px solid #000;
+}
+
+.formCont input,
+.formCont textarea {
+    padding: var(--padSml);
+    border-radius: .2rem;
+    border: 1px solid var(--gray1);
+}
+
+.formCont h3 {
+    font-weight: var(--mediumFontWeight);
+}
+
+.formCont label {
+    font-weight: var(--mediumFontWeight);
+    text-transform: capitalize;
+}
+
+/* .form input:focus,
+.form textarea:focus {
+} */
+
+.formSectionCont {
+    display: grid;
+    gap: 2rem;
+}
+
+.formInputCont {
+    display: grid;
+}
+
+.formCont .mainButton {
+    background-color: var(--color1);
+    border-radius: .5rem;
+    text-transform: uppercase;
+    color: #fff;
+    padding: var(--padSml) var(--padLrg);
+    transition: filter var(--transitionSml);
+    white-space: nowrap;
+}
+
+.formCont .mainButton:hover {
+    filter: brightness(.9);
+}
+
+.formCont .mainButton:disabled {
+    opacity: .5;
+}
+
+
+.formCont .secondaryButton {
+    background-color: var(--gray2);
+    color: #fff;
+    text-transform: uppercase;
+    padding: var(--padSml) var(--padLrg);
+    white-space: nowrap;
+}
+
+.formCont .secondaryButton:hover {
+    filter: brightness(.9);
 }

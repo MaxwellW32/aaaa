@@ -4,6 +4,7 @@ import "./globals.css";
 import { globalFormData } from "../globalFormData";
 import Nav from "@/components/nav/Nav";
 import EditGlobalFormData from "@/components/editGlobalForm/EditGlobalFormData";
+import React from "react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
+      <body style={{ "--color1": globalFormData.siteInfo.colors[0], "--color2": globalFormData.siteInfo.colors[1], "--color3": globalFormData.siteInfo.colors[2], "--color4": globalFormData.siteInfo.colors[3], "--color5": globalFormData.siteInfo.colors[4], } as React.CSSProperties}
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* in dev load form */}
