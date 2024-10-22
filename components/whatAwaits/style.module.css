@@ -1,0 +1,13 @@
+.featuresCont {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+    align-items: flex-start;
+}
+
+
+.featureCont {
+    display: grid;
+    gap: var(--gapSmall);
+    padding: var(--paddingSmall);
+    position: relative;
+}

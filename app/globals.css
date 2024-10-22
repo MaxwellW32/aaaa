@@ -20,9 +20,11 @@
   --textColor2: #fff;
 
   /* fonts */
+  --mediumFontSize: 1.5rem;
   --largeFontSize: 2rem;
-  --boldFontWeight: 700;
+
   --mediumFontWeight: 500;
+  --boldFontWeight: 700;
 
   /* every kbind of variable goes here: name - size naming */
   --paddingSmall: 1rem;
@@ -58,9 +60,29 @@ h1 {
   font-weight: var(--boldFontWeight);
 }
 
+h2 {
+  text-transform: capitalize;
+  font-size: var(--mediumFontSize);
+  font-weight: var(--boldFontWeight);
+}
+
+h3 {
+  text-transform: capitalize;
+  font-weight: var(--boldFontWeight);
+}
+
 svg {
   width: var(--sizeSmall);
   aspect-ratio: 1/1;
+}
+
+section {
+  display: grid;
+  padding: var(--paddingLarge) var(--paddingLarge);
+}
+
+p {
+  max-width: 50ch;
 }
 
 /* classes */
@@ -75,4 +97,13 @@ svg {
 
 .noScrollBar::-webkit-scrollbar {
   display: none;
+}
+
+
+/* small screens */
+@media only screen and (max-width: 600px) {
+  section {
+    padding: var(--paddingSmall);
+  }
+
 }
