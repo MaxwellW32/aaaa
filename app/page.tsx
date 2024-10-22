@@ -4,7 +4,7 @@ import oldLady from "@/public/old lady.png"
 export default function Home() {
 
   return (
-    <div>
+    <div style={{ height: "500vh" }}>
       <div style={{ backgroundColor: "var(--color6)", zIndex: 0, position: "relative", display: "flex", flexWrap: "wrap", overflow: "clip", color: "var(--textColor2)", alignItems: "flex-start" }}>
         <div style={{ flex: "1 1 300px", zIndex: 1, padding: "var(--paddingLarge)", display: "grid", gap: "var(--gapSmall)" }}>
           <h1>Welcome</h1>

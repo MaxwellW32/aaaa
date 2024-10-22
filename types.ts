@@ -127,3 +127,18 @@ export const syncFromServerSchema = z.object({
     sentGlobalFormData: globalFormDataSchema.nullable()
 })
 export type syncFromServerType = z.infer<typeof syncFromServerSchema>
+
+
+
+
+
+
+export type menuItem = {
+    title: string,
+    link: string
+    subMenu?: subMenuItem[]
+}
+export type subMenuItem = {
+    title: string,
+    link: string
+}

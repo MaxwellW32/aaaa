@@ -27,14 +27,26 @@
   /* every kbind of variable goes here: name - size naming */
   --paddingSmall: 1rem;
   --paddingLarge: 2rem;
+  --paddingLargePlus: 3rem;
+  --paddingExtraLarge: 4rem;
+
   --transitionSmall: 400ms;
+  --transitionRegular: 600ms;
+
+  --gapTiny: .2rem;
+  --gapExtraSmall: .5rem;
   --gapSmall: 1rem;
+  --gapLarge: 2rem;
+
+  --sizeExtraSmall: .7rem;
+  --sizeSmall: 1rem;
+  --sizeMedium: 2rem;
 }
 
 *,
 *::before,
 *::after {
-  /* border: 1px solid red !important; */
+  border: 1px solid red !important;
 }
 
 /* elements */
@@ -46,6 +58,10 @@ h1 {
   font-weight: var(--boldFontWeight);
 }
 
+svg {
+  width: var(--sizeSmall);
+  aspect-ratio: 1/1;
+}
 
 /* classes */
 
@@ -55,4 +71,8 @@ h1 {
   color: var(--textColor2);
   background-color: var(--color5);
   padding: var(--paddingSmall) var(--paddingLarge);
+}
+
+.noScrollBar::-webkit-scrollbar {
+  display: none;
 }

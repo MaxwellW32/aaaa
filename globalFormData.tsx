@@ -25,8 +25,8 @@ export const globalFormData: globalFormDataType = {
                 shade3: "#eee",
             },
             background: {
-                bg1: "#000",
-                bg2: "#eee",
+                bg1: "#fff",
+                bg2: "#000",
             },
         }
     },
