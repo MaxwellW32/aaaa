@@ -136,9 +136,11 @@ export type syncFromServerType = z.infer<typeof syncFromServerSchema>
 export type menuItem = {
     title: string,
     link: string
-    subMenu?: subMenuItem[]
+    subMenu?: subMenuItem[],
+    using: boolean
 }
 export type subMenuItem = {
     title: string,
-    link: string
+    link: string,
+    using: boolean
 }

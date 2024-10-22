@@ -90,36 +90,27 @@ export default function Nav() {
         {
             title: "home",
             link: "/",
+            using: true
         },
         {
-            title: "about us",
-            link: "/blog",
-            subMenu: [
-                {
-                    title: "our blog",
-                    link: "/blog"
-                },
-                {
-                    title: "other",
-                    link: "/blog"
-                },
-                {
-                    title: "more",
-                    link: "/blog"
-                },
-            ]
+            title: "our services",
+            link: "/services",
+            using: true
         },
         {
-            title: "contact",
-            link: "/blog",
+            title: "contact us",
+            link: "/contact",
+            using: true
+        },
+        {
+            title: "forms",
+            link: "/forms",
+            using: true
         },
         {
             title: "gallery",
-            link: "/blog",
-        },
-        {
-            title: "news",
-            link: "/blog",
+            link: "/gallery",
+            using: true
         }
     ]
 
