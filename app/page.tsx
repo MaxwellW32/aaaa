@@ -1,4 +1,5 @@
 import Image from "next/image";
+import oldLady from "@/public/old lady.png"
 
 export default function Home() {
 
@@ -17,8 +18,7 @@ export default function Home() {
         </div>
 
         <div style={{ flex: "1 1 600px", zIndex: 1, minHeight: "400px", position: "relative" }}>
-          {/* image */}
-          <Image alt="middle image" src={require("@/public/old lady.png").default.src} fill={true} style={{ objectFit: "cover", objectPosition: "bottom" }} />
+          <Image alt="middle image" src={oldLady} fill={true} style={{ objectFit: "cover", objectPosition: "bottom" }} />
         </div>
 
         <div style={{ flex: "1 1 300px", zIndex: 1, padding: "var(--paddingLarge)", display: "grid", gap: "var(--gapSmall)", alignItems: "flex-start" }}>
