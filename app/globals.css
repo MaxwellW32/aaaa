@@ -9,10 +9,50 @@
   --color3: var(--color3);
   --color4: var(--color4);
   --color5: var(--color5);
+  --color6: var(--color6);
+  --color7: var(--color7);
+  --shade1: var(--shade1);
+  --shade2: var(--shade2);
+  --shade3: var(--shade3);
+  --bg1: var(--bg1);
+  --bg2: var(--bg2);
+  --textColor1: #000;
+  --textColor2: #fff;
+
+  /* fonts */
+  --largeFontSize: 2rem;
+  --boldFontWeight: 700;
+  --mediumFontWeight: 500;
+
+  /* every kbind of variable goes here: name - size naming */
+  --paddingSmall: 1rem;
+  --paddingLarge: 2rem;
+  --transitionSmall: 400ms;
+  --gapSmall: 1rem;
 }
 
 *,
 *::before,
 *::after {
   /* border: 1px solid red !important; */
+}
+
+/* elements */
+
+h1 {
+  color: var(--color4);
+  text-transform: capitalize;
+  font-size: var(--largeFontSize);
+  font-weight: var(--boldFontWeight);
+}
+
+
+/* classes */
+
+.mainButton {
+  text-transform: uppercase;
+  font-weight: var(--boldFontWeight);
+  color: var(--textColor2);
+  background-color: var(--color5);
+  padding: var(--paddingSmall) var(--paddingLarge);
 }

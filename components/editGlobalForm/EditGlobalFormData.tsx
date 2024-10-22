@@ -76,12 +76,12 @@ export default function EditGlobalFormData() {
             {/* form here */}
             <form style={{ display: showingForm ? "" : "none" }} className={styles.form} action={() => { }}>
                 {/* form tab options */}
-                <div style={{ display: "flex", gap: ".5rem", alignItems: "center" }}>
+                <div style={{ display: "flex", gap: ".5rem", overflowX: "auto", height: "5rem", alignItems: "flex-start" }}>
                     {Object.entries(globalFormDataJotai).map(eachFormTabEntry => {
                         const eachFormTabKey = eachFormTabEntry[0] as globalFormDataKeys
 
                         return (
-                            <button key={eachFormTabKey} className={styles.secondaryButton} style={{ color: eachFormTabKey === formTabSelection ? "var(--color1)" : "" }}
+                            <button key={eachFormTabKey} className={styles.secondaryButton} style={{ flex: "0 0 auto", color: eachFormTabKey === formTabSelection ? "var(--color1)" : "" }}
                                 onClick={() => {
                                     formTabSelectionSet(eachFormTabKey)
                                 }}
@@ -96,7 +96,7 @@ export default function EditGlobalFormData() {
                         const eachFormTabKey = eachFormTabEntry[0] as globalFormDataKeys
 
                         return (
-                            <div key={eachFormTabKey} style={{ display: eachFormTabKey === formTabSelection ? "" : "none" }}>
+                            <div key={eachFormTabKey} style={{ display: eachFormTabKey === formTabSelection ? "grid" : "none" }}>
                                 {eachFormTabKey === "siteInfo" ? (
                                     <>
                                         {/* site info */}
@@ -145,7 +145,7 @@ export default function EditGlobalFormData() {
                                 ) : eachFormTabKey === "pages" ? (
                                     <>
                                         {/* form page selection */}
-                                        <div style={{ display: "flex", gap: ".5rem", alignItems: "center" }}>
+                                        <div style={{ display: "flex", gap: ".5rem", alignItems: "center", overflowX: "auto" }}>
                                             {Object.entries(globalFormDataJotai.pages).map(eachPageEntry => {
                                                 const eachPageName = eachPageEntry[0]
 
@@ -172,9 +172,7 @@ export default function EditGlobalFormData() {
                                                         const eachSectionObj = eachSectionEntry[1]
 
                                                         return (
-                                                            <div key={eachSectionKey} style={{ display: currentPage === eachPageKey ? "grid" : "none", border: "1px solid #000", padding: "var(--padSml)" }}>
-                                                                <label>{eachSectionObj.using === true ? `Using ${eachSectionObj.label} ` : `not Using ${eachSectionObj.label} `}</label>
-
+                                                            <div key={eachSectionKey} style={{ display: currentPage === eachPageKey ? "grid" : "none", border: "1px solid #000", padding: "var(--paddingSmall)" }}>
                                                                 <button className={styles.secondaryButton}
                                                                     onClick={() => {
                                                                         globalFormDataJotaiSet(prevData => {
@@ -188,7 +186,7 @@ export default function EditGlobalFormData() {
                                                                             return newData
                                                                         })
                                                                     }}
-                                                                >Toggle use
+                                                                >{eachSectionObj.using === true ? `Using ${eachSectionObj.label} ` : `not Using ${eachSectionObj.label} `}
                                                                 </button>
 
                                                                 {Object.entries(eachSectionObj.inputs).map(eachInputEntry => {

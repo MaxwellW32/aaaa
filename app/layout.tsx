@@ -29,14 +29,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body style={{ "--color1": globalFormData.siteInfo.colors[0], "--color2": globalFormData.siteInfo.colors[1], "--color3": globalFormData.siteInfo.colors[2], "--color4": globalFormData.siteInfo.colors[3], "--color5": globalFormData.siteInfo.colors[4], } as React.CSSProperties}
+      <body style={{
+        "--color1": globalFormData.siteInfo.colors.mainColors.color1, "--color2": globalFormData.siteInfo.colors.mainColors.color2, "--color3": globalFormData.siteInfo.colors.mainColors.color3, "--color4": globalFormData.siteInfo.colors.mainColors.color4, "--color5": globalFormData.siteInfo.colors.mainColors.color5, "--color6": globalFormData.siteInfo.colors.mainColors.color6, "--color7": globalFormData.siteInfo.colors.mainColors.color7,
+
+        "--shade1": globalFormData.siteInfo.colors.shades.shade1, "--shade2": globalFormData.siteInfo.colors.shades.shade2, "--shade3": globalFormData.siteInfo.colors.shades.shade3,
+
+        "--bg1": globalFormData.siteInfo.colors.background.bg1, "--bg2": globalFormData.siteInfo.colors.background.bg2,
+      } as React.CSSProperties}
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* in dev load form */}
         {process.env.IN_DEVELOPMENT === "TRUE" && <EditGlobalFormData />}
 
         <Nav />
+
         {children}
+
       </body>
     </html>
   );

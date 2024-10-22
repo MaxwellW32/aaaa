@@ -9,7 +9,26 @@ export const globalFormData: globalFormDataType = {
         title: "testWebsite1",
         description: "website description for testWebsite1",
         favIcon: "",
-        colors: ["red", "blue", "yellow", "pink", "green"],
+        colors: {
+            mainColors: {
+                color1: "#8ECAE6",
+                color2: "#219EBC",
+                color3: "#023047",
+                color4: "#FFB703",
+                color5: "#FB8500",
+                color6: "#442E4A",
+                color7: "#993955",
+            },
+            shades: {
+                shade1: "#ddd",
+                shade2: "#eee",
+                shade3: "#eee",
+            },
+            background: {
+                bg1: "#000",
+                bg2: "#eee",
+            },
+        }
     },
     pages: {
         home: {

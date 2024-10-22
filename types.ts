@@ -80,7 +80,13 @@ export const globalFormDataSchema = z.object({
         title: z.string().min(1),
         description: z.string().min(1),
         favIcon: z.string(),
-        colors: z.array(z.string()),
+        colors: z.record(
+            z.string(),//color type key - e.g mainColors
+            z.record(
+                z.string(), //color key - e.g color1
+                z.string()
+            ),
+        ),
     }),
     pages: z.record(
         z.string(), // key for each page

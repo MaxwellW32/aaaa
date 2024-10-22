@@ -1,12 +1,15 @@
 .formCont {
-    /* 1 color */
     --color1: #a9d7ff;
-    --gray1: #ddd;
-    --gray2: #333;
-    --padSml: 1rem;
-    --padLrg: 1rem;
-    --transitionSml: 1rem;
+    --shade1: #ddd;
+    --shade2: #333;
+    --paddingSmall: 1rem;
+    --paddingLarge: 2rem;
+    --transitionSmall: 400ms;
     --mediumFontWeight: 700;
+    --smallWidth: 1rem;
+
+    --regularGap: 1rem;
+    --smallGap: .5rem;
 
 
 
@@ -14,25 +17,53 @@
     bottom: 0;
     right: 0;
     display: grid;
-    width: max-content;
+    width: min-content;
+    z-index: 99999;
 }
 
 .form {
-    width: min(1000px, 90vw);
+    width: min(1000px, 100vw);
     height: 60vh;
     overflow-y: auto;
     display: grid;
-    padding: var(--padSml);
+    padding: var(--paddingSmall);
     background-color: #fff;
     border: 1px solid #000;
 }
 
 .formCont input,
 .formCont textarea {
-    padding: var(--padSml);
+    padding: var(--paddingSmall);
     border-radius: .2rem;
-    border: 1px solid var(--gray1);
+    border: 1px solid var(--shade1);
 }
+
+.formCont .colorInput {
+    border-radius: 50%;
+    inline-size: 30px;
+    block-size: 30px;
+
+    padding: 3px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(153, 153, 153);
+}
+
+/* Affects area between outer circle and color swatch. Firefox doesn't have an equivalent. */
+.formCont .colorInput::-webkit-color-swatch-wrapper {
+    padding: 1px;
+}
+
+/* Affects the inner circle, i.e. the current color selection */
+.formCont .colorInput::-webkit-color-swatch {
+    border-radius: 50%;
+}
+
+.formCont .colorInput::-moz-color-swatch {
+    border-radius: 50%;
+}
+
+
 
 .formCont h3 {
     font-weight: var(--mediumFontWeight);
@@ -61,8 +92,8 @@
     border-radius: .5rem;
     text-transform: uppercase;
     color: #fff;
-    padding: var(--padSml) var(--padLrg);
-    transition: filter var(--transitionSml);
+    padding: var(--paddingSmall) var(--paddingLarge);
+    transition: filter var(--transitionSmall);
     white-space: nowrap;
 }
 
@@ -76,10 +107,10 @@
 
 
 .formCont .secondaryButton {
-    background-color: var(--gray2);
+    background-color: var(--shade2);
     color: #fff;
     text-transform: uppercase;
-    padding: var(--padSml) var(--padLrg);
+    padding: var(--paddingSmall) var(--paddingLarge);
     white-space: nowrap;
 }
 
