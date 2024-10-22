@@ -27,10 +27,10 @@ function ShowOnMobile({ menuItems }: { menuItems: menuItem[] }) {
 
     return (
         <nav className={`${styles.nav} ${styles.mobile}`}>
-            <Image alt='logo' src={Logo} height={150} width={150} style={{ objectFit: "contain" }} />
+            <Image alt='logo' src={Logo} height={150} width={150} style={{ objectFit: "contain", margin: "var(--gapSmall)" }} />
 
             <div>
-                {/* bar button */}
+                {/* bar button svg */}
                 <div
                     onClick={() => { showingNavSet(prev => !prev) }}
                 >
