@@ -25,7 +25,13 @@ export default function WhatAwaits({ features }: { features: features[] }) {
 
                         <h3>{eachFeature.title}</h3>
 
-                        <p style={{ textAlign: "start" }}>{eachFeature.text}</p>
+                        <p style={{
+                            textAlign: "start", color:
+                                eachFeatureIndex === 0 ? "var(--color7)" :
+                                    eachFeatureIndex === 1 ? "var(--color3)" :
+                                        eachFeatureIndex === 2 ? "" :
+                                            "var(--color5)"
+                        }}>{eachFeature.text}</p>
                     </div>
                 )
             })}
