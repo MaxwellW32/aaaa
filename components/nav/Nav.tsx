@@ -9,7 +9,7 @@ import Image from 'next/image'
 function ShowOnDesktop({ menuItems }: { menuItems: menuItem[] }) {
     return (
         <nav className={`${styles.nav} ${styles.desktop}`}>
-            <Image alt='logo' src={Logo} height={150} width={150} style={{ objectFit: "contain" }} />
+            <Image alt='logo' src={Logo} height={140} width={140} style={{ objectFit: "contain" }} />
 
             <DisplayMenu menuItems={menuItems} />
 
@@ -27,7 +27,7 @@ function ShowOnMobile({ menuItems }: { menuItems: menuItem[] }) {
 
     return (
         <nav className={`${styles.nav} ${styles.mobile}`}>
-            <Image alt='logo' src={Logo} height={150} width={150} style={{ objectFit: "contain", margin: "var(--gapSmall)" }} />
+            <Image alt='logo' src={Logo} height={140} width={140} style={{ objectFit: "contain" }} />
 
             <div>
                 {/* bar button svg */}
@@ -95,7 +95,14 @@ export default function Nav() {
         {
             title: "our services",
             link: "/services",
-            using: true
+            using: true,
+            subMenu: [
+                {
+                    title: "our services",
+                    link: "/services",
+                    using: true,
+                }
+            ]
         },
         {
             title: "contact us",
