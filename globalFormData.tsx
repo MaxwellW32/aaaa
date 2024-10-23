@@ -3,11 +3,11 @@ import { globalFormDataType } from "@/types";
 export const globalFormData: globalFormDataType = {
     //must be there
     siteInfo: {
-        name: "foreverYoung",
+        name: "Ever-Young",
         fonts: [],
 
-        title: "foreverYoung",
-        description: "website description for foreverYoung",
+        title: "Ever Young",
+        description: "website description for ever young",
         favIcon: "",
         colors: {
             mainColors: {
