@@ -5,6 +5,7 @@ import Services from "@/components/services/Services";
 
 //build out the contact us page
 //get the form working
+// seeing on main machine
 
 export default function Home() {
 
@@ -84,7 +85,7 @@ export default function Home() {
                   "Personalized décor and furnishing options",
                 ],
                 images: [
-                  "https://images.pexels.com/photos/18946626/pexels-photo-18946626/free-photo-of-chairs-and-table-on-terrace-on-sea-coast.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", 
+                  "https://images.pexels.com/photos/18946626/pexels-photo-18946626/free-photo-of-chairs-and-table-on-terrace-on-sea-coast.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
                   "https://images.pexels.com/photos/279652/pexels-photo-279652.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", "https://images.pexels.com/photos/7587884/pexels-photo-7587884.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"]
               },
               {
