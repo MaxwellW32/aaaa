@@ -4,6 +4,7 @@ import WhatAwaits from "@/components/whatAwaits/WhatAwaits";
 import Services from "@/components/services/Services";
 
 export default function Home() {
+// nice
 
   return (
     <main>
