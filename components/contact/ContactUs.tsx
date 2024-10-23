@@ -1,5 +1,4 @@
 import Image from "next/image";
-import defaultImage from "@/public/defaultImage1.webp"
 import Link from "next/link";
 import styles from "./styles.module.css"
 
@@ -16,9 +15,9 @@ type social = {
 
 export default function ContactUs({ contactInfoArr, socials }: { contactInfoArr: contactInfo[], socials: social[] }) {
     return (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "vaR(--gapSmall)", justifyContent: "center", alignItems: "flex-start", width: "min(1000px, 100%)", margin: "0 auto" }}>
-            <div style={{ flex: "0 0 auto", position: "relative", width: "min(250px, 100%)", aspectRatio: "1/1" }}>
-                <Image alt="contactUsImage" src={defaultImage} fill={true} sizes="(max-width: 200px) 100vw, (max-width: 600px) 50vw, 33vw" style={{ objectFit: "cover", borderRadius: "var(--radiusAmountLarge)", }} />
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "vaR(--gapSmall)", justifyContent: "center", alignItems: "center", width: "min(1000px, 100%)", margin: "0 auto" }}>
+            <div style={{ flex: "0 0 auto", position: "relative", width: "min(250px, 80vw)", aspectRatio: "1/1" }}>
+                <Image alt="contactUsImage" src={"https://img.freepik.com/free-photo/medium-shot-female-economist-working-laptop_23-2150167276.jpg?semt=ais_hybrid"} fill={true} sizes="(max-width: 200px) 100vw, (max-width: 600px) 50vw, 33vw" style={{ objectFit: "cover", borderRadius: "var(--radiusAmountLarge)", }} />
             </div>
 
             <div style={{ flex: "1 1 300px", backgroundColor: "var(--bg1)", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))" }}>
