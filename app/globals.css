@@ -39,10 +39,14 @@
   --gapExtraSmall: .5rem;
   --gapSmall: 1rem;
   --gapLarge: 2rem;
+  --gapExtraLarge: 5rem;
 
   --sizeExtraSmall: .7rem;
   --sizeSmall: 1rem;
   --sizeMedium: 2rem;
+
+  --radiusAmountMedium: 20%;
+  --radiusAmountLarge: 50%;
 }
 
 *,
@@ -74,6 +78,11 @@ h3 {
 svg {
   width: var(--sizeSmall);
   aspect-ratio: 1/1;
+  transition: scale var(--transitionSmall);
+}
+
+svg:hover {
+  scale: 1.1;
 }
 
 section {
