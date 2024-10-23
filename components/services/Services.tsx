@@ -2,6 +2,7 @@
 import React, { useMemo, useState } from 'react'
 import styles from "./style.module.css"
 import Image from 'next/image'
+import Link from 'next/link'
 
 type service = {
     title: string,
@@ -66,7 +67,7 @@ export default function Services({ services, calledFromHomePage, ...elProps }: {
                 </div>
             </div>
 
-            <button style={{ justifySelf: "center" }} className='mainButton'>contact us</button>
+            <Link href={"contact"}> <button className='mainButton'>contact us</button></Link>
         </div>
     )
 }
