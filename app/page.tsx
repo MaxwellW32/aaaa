@@ -5,7 +5,6 @@ import Services from "@/components/services/Services";
 
 //build out the contact us page
 //get the form working
-// seeing on main machine
 
 export default function Home() {
 
