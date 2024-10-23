@@ -75,23 +75,11 @@ export default function Services({ services, calledFromHomePage, ...elProps }: {
 
 function ShowImage({ services, currentIndex, position }: { services: service[], currentIndex: number, position: number }) {
 
-    return (
-        <>
-            {services.map((eachService, eachServiceIndex) => {
-                const imageSrcInPosition = eachService.images[position]
+    return services.map((eachService, eachServiceIndex) => {
+        const imageSrcInPosition = eachService.images[position]
 
-                return (
-                    <Image key={eachServiceIndex} className={`${styles.bgImage} ${eachServiceIndex === currentIndex ? styles.fadeIn : ""}`} alt={`${services[currentIndex].title} image`} src={imageSrcInPosition} fill={true} sizes='(max-width 200px) 100vw,(max-width 400px) 50vw, 30vw' style={{ objectFit: "cover", zIndex: eachServiceIndex === currentIndex ? 2 : eachServiceIndex === currentIndex - 1 ? 1 : "" }} />
-                )
-            })}
-
-            {/* {services[currentIndex].images.map((eachImageSrc, eachImageSrcIndex) => {
-                if (eachImageSrcIndex !== position) return null
-
-                return (
-                    <Image key={eachImageSrcIndex} className={`${styles.bgImage} ${styles.fadeIn}`} alt={`${services[currentIndex].title} image`} src={eachImageSrc} fill={true} sizes='(max-width 200px) 100vw,(max-width 400px) 50vw, 30vw' style={{ objectFit: "cover" }} />
-                )
-            })} */}
-        </>
-    )
+        return (
+            <Image key={eachServiceIndex} className={`${styles.bgImage} ${eachServiceIndex === currentIndex ? styles.fadeIn : ""}`} alt={`${services[currentIndex].title} image`} src={imageSrcInPosition} fill={true} sizes='(max-width 200px) 100vw,(max-width 400px) 50vw, 30vw' style={{ objectFit: "cover", zIndex: eachServiceIndex === currentIndex ? 2 : eachServiceIndex === currentIndex - 1 ? 1 : "" }} />
+        )
+    })
 }

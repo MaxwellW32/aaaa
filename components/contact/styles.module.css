@@ -1,0 +1,42 @@
+.contact {
+    padding: var(--paddingLarge);
+    display: flex;
+    gap: var(--gapExtraSmall);
+}
+
+.contact:nth-of-type(even) {
+    background-color: var(--shade3);
+}
+
+.iconCont>svg {
+    width: var(--sizeMedium);
+}
+
+.infoCont {
+    display: grid;
+    gap: var(--gapExtraSmall);
+
+}
+
+.textCont {
+    display: grid;
+    gap: var(--gapExtraSmall);
+
+}
+
+.socialsCont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--paddingLarge);
+    gap: var(--gapExtraSmall);
+    background-color: var(--shade3);
+}
+
+.socialsCont>a {
+    padding: var(--paddingExtraSmall);
+}
+
+.socialsCont svg {
+    fill: var(--textColor2);
+}

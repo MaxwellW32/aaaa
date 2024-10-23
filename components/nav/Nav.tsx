@@ -6,6 +6,46 @@ import styles from "./style.module.css"
 import Link from 'next/link'
 import Image from 'next/image'
 
+const menuItems: menuItem[] = [
+    {
+        title: "home",
+        link: "/",
+        using: true
+    },
+    {
+        title: "our services",
+        link: "/services",
+        using: true,
+    },
+    {
+        title: "contact us",
+        link: "/contact",
+        using: true
+    },
+    {
+        title: "forms",
+        link: "/forms",
+        using: true
+    },
+    {
+        title: "gallery",
+        link: "/gallery",
+        using: true
+    }
+]
+
+export default function Nav() {
+
+    return (
+        <>
+            <ShowOnDesktop menuItems={menuItems} />
+
+            <ShowOnMobile menuItems={menuItems} />
+        </>
+    )
+}
+
+
 function ShowOnDesktop({ menuItems }: { menuItems: menuItem[] }) {
     return (
         <nav className={`${styles.nav} ${styles.desktop}`}>
@@ -83,49 +123,4 @@ function DisplayMenu({ menuItems, func }: { menuItems: menuItem[], func?: () => 
         </ul>
     )
 
-}
-
-export default function Nav() {
-    const menuItems: menuItem[] = [
-        {
-            title: "home",
-            link: "/",
-            using: true
-        },
-        {
-            title: "our services",
-            link: "/services",
-            using: true,
-            subMenu: [
-                {
-                    title: "our services",
-                    link: "/services",
-                    using: true,
-                }
-            ]
-        },
-        {
-            title: "contact us",
-            link: "/contact",
-            using: true
-        },
-        {
-            title: "forms",
-            link: "/forms",
-            using: true
-        },
-        {
-            title: "gallery",
-            link: "/gallery",
-            using: true
-        }
-    ]
-
-    return (
-        <>
-            <ShowOnDesktop menuItems={menuItems} />
-
-            <ShowOnMobile menuItems={menuItems} />
-        </>
-    )
 }

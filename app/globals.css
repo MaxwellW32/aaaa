@@ -27,6 +27,7 @@
   --boldFontWeight: 700;
 
   /* every kbind of variable goes here: name - size naming */
+  --paddingExtraSmall: .5rem;
   --paddingSmall: 1rem;
   --paddingLarge: 2rem;
   --paddingLargePlus: 3rem;

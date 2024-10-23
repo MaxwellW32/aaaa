@@ -22,7 +22,7 @@ export const globalFormData: globalFormDataType = {
             shades: {
                 shade1: "#ddd",
                 shade2: "#eee",
-                shade3: "#eee",
+                shade3: "#f8f8f8",
             },
             background: {
                 bg1: "#fff",
