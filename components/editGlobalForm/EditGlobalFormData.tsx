@@ -221,14 +221,49 @@ export default function EditGlobalFormData() {
                                                                                         }}
                                                                                     >Close</button>
 
-                                                                                    {Object.entries(eachContactObj).map(eachContactEntry => {
-                                                                                        const inputKey = eachContactEntry[0]
-                                                                                        const inputObj = eachContactEntry[1]
+                                                                                    {Object.entries(eachContactObj).map(eachContactObjEntry => {
+                                                                                        const eachContactObjKey = eachContactObjEntry[0] as keyof contactComponentType["component"][number]
+                                                                                        const eachContactObjval = eachContactObjEntry[1]
+
+                                                                                        if (eachContactObjKey === "texts") return null
 
                                                                                         return (
-                                                                                            <DisplayFormInfo key={inputKey} inputObj={inputObj} seenIndex={eachContactObjIndex} inputKey={inputKey} eachPageKey={eachPageKey} eachSectionKey={eachSectionKey} />
+                                                                                            // @ts-expect-error not seeing the input is correct type
+                                                                                            <DisplayFormInfo key={eachContactObjKey} inputObj={eachContactObjval} seenIndex={eachContactObjIndex} inputKey={eachContactObjKey} eachPageKey={eachPageKey} eachSectionKey={eachSectionKey} />
                                                                                         )
                                                                                     })}
+
+                                                                                    {/* texts */}
+                                                                                    <div>
+                                                                                        {(eachContactObj.texts).map((eachTextObj, eachTextObjIndex) => {
+
+                                                                                            return (
+                                                                                                <DisplayFormInfo key={eachTextObjIndex} inputObj={eachTextObj} inputKey={"texts"} eachPageKey={eachPageKey} eachSectionKey={eachSectionKey} seenIndex={eachContactObjIndex} seenIndex2={eachTextObjIndex} />
+                                                                                            )
+                                                                                        })}
+
+                                                                                        <button
+                                                                                            onClick={() => {
+                                                                                                globalFormDataJotaiSet(prevData => {
+                                                                                                    const newData = { ...prevData }
+
+                                                                                                    const seenSectionObj = newData.pages[eachPageKey][eachSectionKey]
+
+                                                                                                    const newTextObj: formInputType = {
+                                                                                                        fieldType: "input",
+                                                                                                        value: ""
+                                                                                                    }
+
+                                                                                                    if (seenSectionObj.fieldType === "contactComponent") {
+                                                                                                        seenSectionObj.component[eachContactObjIndex].texts = [...seenSectionObj.component[eachContactObjIndex].texts, newTextObj]
+                                                                                                    }
+
+                                                                                                    return newData
+                                                                                                })
+
+                                                                                            }}
+                                                                                        >Add text</button>
+                                                                                    </div>
                                                                                 </div>
                                                                             )
                                                                         })}
@@ -246,10 +281,10 @@ export default function EditGlobalFormData() {
                                                                                                 fieldType: "svg",
                                                                                                 value: <></>
                                                                                             },
-                                                                                            text: {
+                                                                                            texts: [{
                                                                                                 fieldType: "textarea",
                                                                                                 value: ""
-                                                                                            },
+                                                                                            }],
                                                                                             title: {
                                                                                                 fieldType: "input",
                                                                                                 value: ""
@@ -305,7 +340,7 @@ export default function EditGlobalFormData() {
 }
 
 
-function DisplayFormInfo({ inputObj, inputKey, seenIndex, eachPageKey, eachSectionKey }: { inputObj: formInputType, inputKey: string, eachPageKey: string, eachSectionKey: string, seenIndex?: number }) {
+function DisplayFormInfo({ inputObj, inputKey, eachPageKey, eachSectionKey, seenIndex, seenIndex2 }: { inputObj: formInputType, inputKey: string, eachPageKey: string, eachSectionKey: string, seenIndex?: number, seenIndex2?: number }) {
     const [, globalFormDataJotaiSet] = useAtom(globalFormDataJotaiGlobal)
 
     return (
@@ -323,7 +358,17 @@ function DisplayFormInfo({ inputObj, inputKey, seenIndex, eachPageKey, eachSecti
                             seenSectionObj.inputs[inputKey].value = e.target.value
 
                         } else if (seenSectionObj.fieldType === "contactComponent" && seenIndex !== undefined) {
-                            seenSectionObj.component[seenIndex][inputKey].value = e.target.value
+                            const seenInputKey = inputKey as keyof contactComponentType["component"][number]
+
+                            // set all but text
+                            if (seenInputKey !== "texts") {
+                                seenSectionObj.component[seenIndex][seenInputKey].value = e.target.value
+                            }
+
+                            if (seenIndex2 !== undefined) {
+                                //set text
+                                seenSectionObj.component[seenIndex]["texts"][seenIndex2].value = e.target.value
+                            }
                         }
 
                         return newData
@@ -341,8 +386,19 @@ function DisplayFormInfo({ inputObj, inputKey, seenIndex, eachPageKey, eachSecti
 
                         if (seenSectionObj.fieldType === "section") {
                             seenSectionObj.inputs[inputKey].value = parsedNum
+
                         } else if (seenSectionObj.fieldType === "contactComponent" && seenIndex !== undefined) {
-                            seenSectionObj.component[seenIndex][inputKey].value = parsedNum
+                            const seenInputKey = inputKey as keyof contactComponentType["component"][number]
+
+                            // set all but text
+                            if (seenInputKey !== "texts") {
+                                seenSectionObj.component[seenIndex][seenInputKey].value = parsedNum
+                            }
+
+                            if (seenIndex2 !== undefined) {
+                                //set text
+                                seenSectionObj.component[seenIndex]["texts"][seenIndex2].value = parsedNum
+                            }
                         }
 
                         return newData
@@ -361,8 +417,19 @@ function DisplayFormInfo({ inputObj, inputKey, seenIndex, eachPageKey, eachSecti
 
                         if (seenSectionObj.fieldType === "section") {
                             seenSectionObj.inputs[inputKey].value = seenText
+
                         } else if (seenSectionObj.fieldType === "contactComponent" && seenIndex !== undefined) {
-                            seenSectionObj.component[seenIndex][inputKey].value = seenText
+                            const seenInputKey = inputKey as keyof contactComponentType["component"][number]
+
+                            // set all but text
+                            if (seenInputKey !== "texts") {
+                                seenSectionObj.component[seenIndex][seenInputKey].value = seenText
+                            }
+
+                            if (seenIndex2 !== undefined) {
+                                //set text
+                                seenSectionObj.component[seenIndex]["texts"][seenIndex2].value = seenText
+                            }
                         }
 
                         return newData

@@ -93,10 +93,11 @@ const sectionTypeSchema = z.object({ //section
 export type sectionType = z.infer<typeof sectionTypeSchema>
 
 const contactComponentTypeSchema = z.object({ //section 
-    component: z.array(z.record(
-        z.string(),
-        formInputTypeSchema
-    )),
+    component: z.array(z.object({
+        svg: formInputTypeSchema,
+        title: formInputTypeSchema,
+        texts: z.array(formInputTypeSchema)
+    })),
     using: z.boolean(),
     label: z.string(),
     fieldType: z.literal("contactComponent"),

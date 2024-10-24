@@ -66,10 +66,12 @@ export const globalFormData: globalFormDataType = {
                             fieldType: "input",
                             value: "Location"
                         },
-                        text: {
-                            fieldType: "textarea",
-                            value: "34 High Street, Blazfield Ave, FL 95403 - USA"
-                        },
+                        texts: [
+                            {
+                                fieldType: "input",
+                                value: "34 High Street, Blazfield Ave, FL 95403 - USA"
+                            }
+                        ],
                     },
                     {
                         svg: {
@@ -80,10 +82,16 @@ export const globalFormData: globalFormDataType = {
                             fieldType: "input",
                             value: "Call Us"
                         },
-                        text: {
-                            fieldType: "textarea",
-                            value: "Support: + 08 645 280 947, Inquiry: + 08 645 290 948"
-                        },
+                        texts: [
+                            {
+                                fieldType: "input",
+                                value: "Support: + 08 645 280 947"
+                            },
+                            {
+                                fieldType: "input",
+                                value: "Inquiry: + 08 645 290 948"
+                            }
+                        ],
                     },
                     {
                         svg: {
@@ -94,10 +102,16 @@ export const globalFormData: globalFormDataType = {
                             fieldType: "input",
                             value: "Email"
                         },
-                        text: {
-                            fieldType: "textarea",
-                            value: "admin@primekidz.org, courses@mydomain.com"
-                        },
+                        texts: [
+                            {
+                                fieldType: "input",
+                                value: "admin@primekidz.org"
+                            },
+                            {
+                                fieldType: "input",
+                                value: "courses@mydomain.com"
+                            },
+                        ],
                     },
                 ],
                 using: true,

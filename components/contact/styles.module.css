@@ -17,3 +17,8 @@
     gap: var(--gapExtraSmall);
 
 }
+
+.textCont {
+    display: grid;
+    gap: var(--gapExtraSmall);
+}

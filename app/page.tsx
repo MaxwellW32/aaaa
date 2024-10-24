@@ -155,7 +155,7 @@ export default function Home() {
         </div>
       </section>
 
-      {globalFormDataJotai.pages.home.section2.fieldType === "contactComponent" && (
+      {globalFormDataJotai.pages.home.section2.fieldType === "contactComponent" && globalFormDataJotai.pages.home.section2.using && (
         <section style={{ backgroundColor: "var(--color5)" }}>
           <ContactUs contacts={globalFormDataJotai.pages.home.section2.component} />
         </section>
