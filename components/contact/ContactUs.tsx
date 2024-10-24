@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import styles from "./styles.module.css"
 import defaultImage from "@/public/defaultImage1.webp"
 import Socials from "../socials/Socials";
