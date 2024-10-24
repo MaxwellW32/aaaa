@@ -1,0 +1,16 @@
+ .socialsCont {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     padding: var(--paddingLarge);
+     gap: var(--gapExtraSmall);
+     background-color: var(--shade3);
+ }
+
+ .socialsCont>a {
+     padding: var(--paddingExtraSmall);
+ }
+
+ .socialsCont svg {
+     fill: var(--textColor2);
+ }

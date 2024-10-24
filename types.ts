@@ -58,6 +58,16 @@ const numberTypeSchema = z.object({
     value: z.number(),
 });
 export type numberType = z.infer<typeof numberTypeSchema>
+// Number Type Schema
+
+
+const svgTypeSchema = z.object({
+    label: z.string().optional(),
+    required: z.boolean().optional(),
+    fieldType: z.literal("svg"),
+    value: z.any(),
+});
+export type svgType = z.infer<typeof svgTypeSchema>
 
 // Form Input Type (Discriminated Union)
 const formInputTypeSchema = z.union([
@@ -67,9 +77,36 @@ const formInputTypeSchema = z.union([
     videoTypeSchema,
     linkTypeSchema,
     numberTypeSchema,
+    svgTypeSchema
 ]);
 export type formInputType = z.infer<typeof formInputTypeSchema>
 
+const sectionTypeSchema = z.object({ //section 
+    inputs: z.record(
+        z.string(), // key for each input
+        formInputTypeSchema
+    ),
+    using: z.boolean(),
+    label: z.string(),
+    fieldType: z.literal("section"),
+})
+export type sectionType = z.infer<typeof sectionTypeSchema>
+
+const contactComponentTypeSchema = z.object({ //section 
+    component: z.array(z.record(
+        z.string(),
+        formInputTypeSchema
+    )),
+    using: z.boolean(),
+    label: z.string(),
+    fieldType: z.literal("contactComponent"),
+})
+export type contactComponentType = z.infer<typeof contactComponentTypeSchema>
+
+const pageSectionSchema = z.union([
+    sectionTypeSchema,
+    contactComponentTypeSchema
+]);
 
 
 export const globalFormDataSchema = z.object({
@@ -91,15 +128,8 @@ export const globalFormDataSchema = z.object({
     pages: z.record(
         z.string(), // key for each page
         z.record(
-            z.string(), // key for each section
-            z.object({
-                inputs: z.record(
-                    z.string(), // key for each input
-                    formInputTypeSchema
-                ),
-                using: z.boolean(),
-                label: z.string(),
-            })
+            z.string(), // key for each section or component
+            pageSectionSchema
         )
     ),
     navLinks: z.object({
@@ -119,7 +149,6 @@ export const globalFormDataSchema = z.object({
 });
 export type globalFormDataType = z.infer<typeof globalFormDataSchema>
 export type globalFormDataKeys = keyof globalFormDataType
-
 
 //the data type for all templates globalFormData obj
 //ensures the data we get back from the server will work for this template

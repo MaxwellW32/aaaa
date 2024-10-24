@@ -3,7 +3,7 @@ import { globalFormDataJotaiGlobal } from '@/jotai'
 import { useAtom } from 'jotai'
 import React, { useState, useEffect } from 'react'
 import styles from "./style.module.css"
-import { globalFormDataKeys, globalFormDataType, syncFromServerSchema } from '@/types'
+import { contactComponentType, formInputType, globalFormDataKeys, globalFormDataType, syncFromServerSchema } from '@/types'
 import CustomizeColors from './CustomizeColors'
 
 //this handles all form info for the website
@@ -189,59 +189,82 @@ export default function EditGlobalFormData() {
                                                                 >{eachSectionObj.using === true ? `Using ${eachSectionObj.label} ` : `not Using ${eachSectionObj.label} `}
                                                                 </button>
 
-                                                                {Object.entries(eachSectionObj.inputs).map(eachInputEntry => {
-                                                                    const inputKey = eachInputEntry[0] //each input id/name
-                                                                    const inputObj = eachInputEntry[1]
+                                                                {eachSectionObj.fieldType === "section" ? (
+                                                                    <>
+                                                                        {Object.entries(eachSectionObj.inputs).map(eachInputEntry => {
+                                                                            const inputKey = eachInputEntry[0] //each input id/name
+                                                                            const inputObj = eachInputEntry[1]
 
-                                                                    return (
-                                                                        <div key={inputKey} className={styles.formInputCont}>
-                                                                            {inputObj.label !== undefined && <label className={styles.label} htmlFor={inputKey}>{inputObj.label}</label>}
+                                                                            return (
+                                                                                <DisplayFormInfo key={inputKey} inputObj={inputObj} inputKey={inputKey} eachPageKey={eachPageKey} eachSectionKey={eachSectionKey} />
+                                                                            )
+                                                                        })}
+                                                                    </>
+                                                                ) : eachSectionObj.fieldType === "contactComponent" ? (
+                                                                    <div className={`${styles.componentCont} snap`}>
+                                                                        {eachSectionObj.component.map((eachContactObj, eachContactObjIndex) => {
+                                                                            return (
+                                                                                <div key={eachContactObjIndex} className={styles.component}>
+                                                                                    <button
+                                                                                        onClick={() => {
+                                                                                            globalFormDataJotaiSet(prevData => {
+                                                                                                const newData = { ...prevData }
 
-                                                                            {inputObj.fieldType === "input" ? (
-                                                                                <input id={inputKey} type={"text"} name={inputKey} value={inputObj.value} placeholder={inputObj.placeHolder ?? "type your text here"} onChange={(e) => {
-                                                                                    globalFormDataJotaiSet(prevData => {
-                                                                                        const newData = { ...prevData }
-                                                                                        newData.pages[eachPageKey][eachSectionKey].inputs[inputKey].value = e.target.value
-                                                                                        return newData
-                                                                                    })
-                                                                                }} />
-                                                                            ) : inputObj.fieldType === "number" ? (
-                                                                                <input id={inputKey} type={"text"} name={inputKey} value={`${inputObj.value}`} placeholder={inputObj.placeHolder ?? "type numbers here"} onChange={(e) => {
-                                                                                    globalFormDataJotaiSet(prevData => {
-                                                                                        const newData = { ...prevData }
-                                                                                        let parsedNum = parseFloat(e.target.value)
-                                                                                        if (isNaN(parsedNum)) parsedNum = 0
+                                                                                                const seenSectionObj = newData.pages[eachPageKey][eachSectionKey]
 
-                                                                                        newData.pages[eachPageKey][eachSectionKey].inputs[inputKey].value = parsedNum
-                                                                                        return newData
-                                                                                    })
-                                                                                }} />
+                                                                                                if (seenSectionObj.fieldType === "contactComponent") {
+                                                                                                    seenSectionObj.component = seenSectionObj.component.filter((eachCompSeen, eachCompSeenIndex) => eachCompSeenIndex === eachContactObjIndex)
+                                                                                                }
 
-                                                                            ) : inputObj.fieldType === "textarea" ? (
-                                                                                <textarea rows={5} id={inputKey} name={inputKey} value={inputObj.value} placeholder={inputObj.placeHolder ?? "type your text here"} onInput={(e) => {
-                                                                                    globalFormDataJotaiSet(prevData => {
-                                                                                        const newData = { ...prevData }
-                                                                                        //@ts-expect-error value exits on text area
-                                                                                        newData.pages[eachPageKey][eachSectionKey].inputs[inputKey].value = e.target.value
-                                                                                        return newData
-                                                                                    })
-                                                                                }} ></textarea>
+                                                                                                return newData
+                                                                                            })
+                                                                                        }}
+                                                                                    >Close</button>
 
-                                                                            ) : inputObj.fieldType === "image" ? (
-                                                                                <p>image</p>
+                                                                                    {Object.entries(eachContactObj).map(eachContactEntry => {
+                                                                                        const inputKey = eachContactEntry[0]
+                                                                                        const inputObj = eachContactEntry[1]
 
-                                                                            ) : inputObj.fieldType === "video" ? (
-                                                                                <p>video</p>
+                                                                                        return (
+                                                                                            <DisplayFormInfo key={inputKey} inputObj={inputObj} seenIndex={eachContactObjIndex} inputKey={inputKey} eachPageKey={eachPageKey} eachSectionKey={eachSectionKey} />
+                                                                                        )
+                                                                                    })}
+                                                                                </div>
+                                                                            )
+                                                                        })}
 
-                                                                            ) : inputObj.fieldType === "link" ? (
-                                                                                <p>link</p>
-                                                                            ) : null}
+                                                                        <button className={styles.mainButton} style={{ justifySelf: "flex-start", alignSelf: "center" }}
+                                                                            onClick={() => {
+                                                                                globalFormDataJotaiSet(prevData => {
+                                                                                    const newData = { ...prevData }
 
-                                                                            {/* will implement soon */}
-                                                                            {/* {errors !== undefined && <p style={{ color: "red", fontSize: "var(--smallFontSize)" }}>{errors}</p>} */}
-                                                                        </div>
-                                                                    )
-                                                                })}
+                                                                                    const seenSectionObj = newData.pages[eachPageKey][eachSectionKey]
+
+                                                                                    if (seenSectionObj.fieldType === "contactComponent") {
+                                                                                        const newComponent: contactComponentType["component"][number] = {
+                                                                                            svg: {
+                                                                                                fieldType: "svg",
+                                                                                                value: <></>
+                                                                                            },
+                                                                                            text: {
+                                                                                                fieldType: "textarea",
+                                                                                                value: ""
+                                                                                            },
+                                                                                            title: {
+                                                                                                fieldType: "input",
+                                                                                                value: ""
+                                                                                            },
+                                                                                        }
+
+                                                                                        seenSectionObj.component = [...seenSectionObj.component, newComponent]
+                                                                                    }
+
+                                                                                    return newData
+                                                                                })
+                                                                            }}
+                                                                        >Add Contact</button>
+                                                                    </div>
+                                                                ) : null}
                                                             </div>
                                                         )
                                                     })}
@@ -277,6 +300,89 @@ export default function EditGlobalFormData() {
                     })}
                 </div>
             </form>
+        </div>
+    )
+}
+
+
+function DisplayFormInfo({ inputObj, inputKey, seenIndex, eachPageKey, eachSectionKey }: { inputObj: formInputType, inputKey: string, eachPageKey: string, eachSectionKey: string, seenIndex?: number }) {
+    const [, globalFormDataJotaiSet] = useAtom(globalFormDataJotaiGlobal)
+
+    return (
+        <div className={styles.formInputCont}>
+            {inputObj.label !== undefined && <label className={styles.label} htmlFor={inputKey}>{inputObj.label}</label>}
+
+            {inputObj.fieldType === "input" ? (
+                <input id={inputKey} type={"text"} name={inputKey} value={inputObj.value} placeholder={inputObj.placeHolder ?? "type your text here"} onChange={(e) => {
+                    globalFormDataJotaiSet(prevData => {
+                        const newData = { ...prevData }
+
+                        const seenSectionObj = newData.pages[eachPageKey][eachSectionKey]
+
+                        if (seenSectionObj.fieldType === "section") {
+                            seenSectionObj.inputs[inputKey].value = e.target.value
+
+                        } else if (seenSectionObj.fieldType === "contactComponent" && seenIndex !== undefined) {
+                            seenSectionObj.component[seenIndex][inputKey].value = e.target.value
+                        }
+
+                        return newData
+                    })
+                }} />
+            ) : inputObj.fieldType === "number" ? (
+                <input id={inputKey} type={"text"} name={inputKey} value={`${inputObj.value}`} placeholder={inputObj.placeHolder ?? "type numbers here"} onChange={(e) => {
+                    globalFormDataJotaiSet(prevData => {
+                        const newData = { ...prevData }
+                        let parsedNum = parseFloat(e.target.value)
+                        if (isNaN(parsedNum)) parsedNum = 0
+
+
+                        const seenSectionObj = newData.pages[eachPageKey][eachSectionKey]
+
+                        if (seenSectionObj.fieldType === "section") {
+                            seenSectionObj.inputs[inputKey].value = parsedNum
+                        } else if (seenSectionObj.fieldType === "contactComponent" && seenIndex !== undefined) {
+                            seenSectionObj.component[seenIndex][inputKey].value = parsedNum
+                        }
+
+                        return newData
+                    })
+                }} />
+
+            ) : inputObj.fieldType === "textarea" ? (
+                <textarea rows={5} id={inputKey} name={inputKey} value={inputObj.value} placeholder={inputObj.placeHolder ?? "type your text here"} onInput={(e) => {
+                    globalFormDataJotaiSet(prevData => {
+                        const newData = { ...prevData }
+
+                        const seenSectionObj = newData.pages[eachPageKey][eachSectionKey]
+
+                        //@ts-expect-error value exits on text area
+                        const seenText = e.target.value
+
+                        if (seenSectionObj.fieldType === "section") {
+                            seenSectionObj.inputs[inputKey].value = seenText
+                        } else if (seenSectionObj.fieldType === "contactComponent" && seenIndex !== undefined) {
+                            seenSectionObj.component[seenIndex][inputKey].value = seenText
+                        }
+
+                        return newData
+                    })
+                }} ></textarea>
+
+            ) : inputObj.fieldType === "image" ? (
+                <p>image</p>
+
+            ) : inputObj.fieldType === "video" ? (
+                <p>video</p>
+
+            ) : inputObj.fieldType === "link" ? (
+                <p>link</p>
+            ) : inputObj.fieldType === "svg" ? (
+                <p>svg</p>
+            ) : null}
+
+            {/* will implement soon */}
+            {/* {errors !== undefined && <p style={{ color: "red", fontSize: "var(--smallFontSize)" }}>{errors}</p>} */}
         </div>
     )
 }
