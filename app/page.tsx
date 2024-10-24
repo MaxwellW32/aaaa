@@ -8,18 +8,11 @@ import ContactUs from "@/components/contact/ContactUs";
 import { useAtom } from "jotai";
 import { globalFormDataJotaiGlobal } from "@/jotai";
 
-//build out the contact us page
-//get the form working
-
 export default function Home() {
   const [globalFormDataJotai,] = useAtom(globalFormDataJotaiGlobal)
 
   return (
     <main>
-      <p>
-        {globalFormDataJotai.pages.home.section1.fieldType === "section" && globalFormDataJotai.pages.home.section1.inputs.text1.value}
-      </p>
-
       <div style={{ backgroundColor: "var(--color6)", zIndex: 0, position: "relative", display: "flex", flexWrap: "wrap", overflow: "clip", color: "var(--textColor2)", alignItems: "flex-start" }}>
         <div style={{ flex: "1 1 300px", zIndex: 1, padding: "var(--paddingLarge)", display: "grid", gap: "var(--gapSmall)" }}>
           <h1>Welcome</h1>

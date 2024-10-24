@@ -242,7 +242,7 @@ export default function EditGlobalFormData() {
                                                                                             )
                                                                                         })}
 
-                                                                                        <button
+                                                                                        <button className={styles.mainButton}
                                                                                             onClick={() => {
                                                                                                 globalFormDataJotaiSet(prevData => {
                                                                                                     const newData = { ...prevData }
