@@ -13,6 +13,14 @@ export default function Home() {
 
   return (
     <main>
+      {!globalFormDataJotai.pages.home.section1.fieldType && globalFormDataJotai.pages.home.section1.using && (
+        <div>
+          <p>{globalFormDataJotai.pages.home.section1.inputs.text1.value}</p>
+          <p>{globalFormDataJotai.pages.home.section1.inputs.text2.value}</p>
+          <p>{globalFormDataJotai.pages.home.section1.inputs.text3.value}</p>
+        </div>
+      )}
+
       <div style={{ backgroundColor: "var(--color6)", zIndex: 0, position: "relative", display: "flex", flexWrap: "wrap", overflow: "clip", color: "var(--textColor2)", alignItems: "flex-start" }}>
         <div style={{ flex: "1 1 300px", zIndex: 1, padding: "var(--paddingLarge)", display: "grid", gap: "var(--gapSmall)" }}>
           <h1>Welcome</h1>
@@ -148,11 +156,11 @@ export default function Home() {
         </div>
       </section>
 
-      {globalFormDataJotai.pages.home.section2.fieldType === "contactComponent" && globalFormDataJotai.pages.home.section2.using && (
+      {/* {globalFormDataJotai.pages.home.section2.fieldType === "contactComponent" && globalFormDataJotai.pages.home.section2.using && (
         <section style={{ backgroundColor: "var(--color5)" }}>
           <ContactUs contacts={globalFormDataJotai.pages.home.section2.component} />
         </section>
-      )}
+      )} */}
     </main>
   );
 }

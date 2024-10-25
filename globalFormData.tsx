@@ -51,8 +51,8 @@ export const globalFormData: globalFormDataType = {
 
                     },
                 },
+
                 using: true,
-                fieldType: "section"
             },
             section2: {
                 label: "section 2 - contacts",

@@ -189,7 +189,7 @@ export default function EditGlobalFormData() {
                                                                 >{eachSectionObj.using === true ? `Using ${eachSectionObj.label} ` : `not Using ${eachSectionObj.label} `}
                                                                 </button>
 
-                                                                {eachSectionObj.fieldType === "section" ? (
+                                                                {eachSectionObj.fieldType === undefined || eachSectionObj.fieldType === "section" ? (
                                                                     <>
                                                                         {Object.entries(eachSectionObj.inputs).map(eachInputEntry => {
                                                                             const inputKey = eachInputEntry[0] //each input id/name
@@ -354,7 +354,7 @@ function DisplayFormInfo({ inputObj, inputKey, eachPageKey, eachSectionKey, seen
 
                         const seenSectionObj = newData.pages[eachPageKey][eachSectionKey]
 
-                        if (seenSectionObj.fieldType === "section") {
+                        if (seenSectionObj.fieldType === undefined || seenSectionObj.fieldType === "section") {
                             seenSectionObj.inputs[inputKey].value = e.target.value
 
                         } else if (seenSectionObj.fieldType === "contactComponent" && seenIndex !== undefined) {
@@ -384,7 +384,7 @@ function DisplayFormInfo({ inputObj, inputKey, eachPageKey, eachSectionKey, seen
 
                         const seenSectionObj = newData.pages[eachPageKey][eachSectionKey]
 
-                        if (seenSectionObj.fieldType === "section") {
+                        if (seenSectionObj.fieldType === undefined || seenSectionObj.fieldType === "section") {
                             seenSectionObj.inputs[inputKey].value = parsedNum
 
                         } else if (seenSectionObj.fieldType === "contactComponent" && seenIndex !== undefined) {
@@ -415,7 +415,7 @@ function DisplayFormInfo({ inputObj, inputKey, eachPageKey, eachSectionKey, seen
                         //@ts-expect-error value exits on text area
                         const seenText = e.target.value
 
-                        if (seenSectionObj.fieldType === "section") {
+                        if (seenSectionObj.fieldType === undefined || seenSectionObj.fieldType === "section") {
                             seenSectionObj.inputs[inputKey].value = seenText
 
                         } else if (seenSectionObj.fieldType === "contactComponent" && seenIndex !== undefined) {

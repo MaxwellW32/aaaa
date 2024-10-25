@@ -58,9 +58,8 @@ const numberTypeSchema = z.object({
     value: z.number(),
 });
 export type numberType = z.infer<typeof numberTypeSchema>
-// Number Type Schema
 
-
+// Svg Type Schema
 const svgTypeSchema = z.object({
     label: z.string().optional(),
     required: z.boolean().optional(),
@@ -81,30 +80,36 @@ const formInputTypeSchema = z.union([
 ]);
 export type formInputType = z.infer<typeof formInputTypeSchema>
 
-const sectionTypeSchema = z.object({ //section 
+//section type 
+const sectionTypeSchema = z.object({
+    label: z.string(),
+
     inputs: z.record(
         z.string(), // key for each input
         formInputTypeSchema
     ),
+
     using: z.boolean(),
-    label: z.string(),
-    fieldType: z.literal("section"),
+    fieldType: z.literal("section").optional(),
 })
 export type sectionType = z.infer<typeof sectionTypeSchema>
 
+//only for contact component
 const contactComponentTypeSchema = z.object({ //section 
+    label: z.string(),
+
     component: z.array(z.object({
         svg: formInputTypeSchema,
         title: formInputTypeSchema,
         texts: z.array(formInputTypeSchema)
     })),
+
     using: z.boolean(),
-    label: z.string(),
     fieldType: z.literal("contactComponent"),
 })
 export type contactComponentType = z.infer<typeof contactComponentTypeSchema>
 
-const pageSectionSchema = z.union([
+const pageSectionUnionSchema = z.union([
     sectionTypeSchema,
     contactComponentTypeSchema
 ]);
@@ -130,7 +135,7 @@ export const globalFormDataSchema = z.object({
         z.string(), // key for each page
         z.record(
             z.string(), // key for each section or component
-            pageSectionSchema
+            pageSectionUnionSchema
         )
     ),
     navLinks: z.object({

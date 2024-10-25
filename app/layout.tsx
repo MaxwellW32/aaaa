@@ -43,7 +43,7 @@ export default function RootLayout({
 
         <Nav />
 
-        {children} 
+        {children}
 
       </body>
     </html>
