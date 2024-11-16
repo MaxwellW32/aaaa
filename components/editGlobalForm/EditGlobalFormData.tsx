@@ -246,7 +246,7 @@ export default function EditGlobalFormData() {
                                                                                         const newComponent: contactComponentType["component"][number] = {
                                                                                             svg: {
                                                                                                 fieldType: "svg",
-                                                                                                value: <></>
+                                                                                                value: '<></>'
                                                                                             },
                                                                                             texts: [{
                                                                                                 fieldType: "textarea",

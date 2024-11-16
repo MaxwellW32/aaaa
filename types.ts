@@ -152,7 +152,7 @@ const svgTypeSchema = z.object({
     label: z.string().optional(),
     required: z.boolean().optional(),
     fieldType: z.literal("svg"),
-    value: z.any(),
+    value: z.string(),
 });
 export type svgType = z.infer<typeof svgTypeSchema>
 
