@@ -9,7 +9,7 @@ export default function CustomizeColors() {
 
     //write colors to state
     useEffect(() => {
-        Object.entries(globalFormDataJotai.siteInfo.colors).forEach(eachColorTypeEntry => {
+        Object.entries(globalFormDataJotai.specificData.colors).forEach(eachColorTypeEntry => {
             const eachColorTypeObj = eachColorTypeEntry[1]
 
             Object.entries(eachColorTypeObj).forEach(eachColorEntry => {
@@ -20,11 +20,11 @@ export default function CustomizeColors() {
             })
         })
 
-    }, [globalFormDataJotai.siteInfo.colors])
+    }, [globalFormDataJotai.specificData.colors])
 
     return (
         <div style={{ display: "grid", paddingLeft: "var(--paddingSmall)", gap: "var(--regularGap)" }}>
-            {Object.entries(globalFormDataJotai.siteInfo.colors).map(eachColorTypeEntry => {
+            {Object.entries(globalFormDataJotai.specificData.colors).map(eachColorTypeEntry => {
                 const eachColorTypeKey = eachColorTypeEntry[0]
                 const eachColorTypeObj = eachColorTypeEntry[1]
 
@@ -46,9 +46,9 @@ export default function CustomizeColors() {
                                                 const newData = { ...prevData }
 
                                                 //just to refresh for the useEffect
-                                                newData.siteInfo.colors = { ...newData.siteInfo.colors }
+                                                newData.specificData.colors = { ...newData.specificData.colors }
 
-                                                newData.siteInfo.colors[eachColorTypeKey][eachColorKey] = e.target.value
+                                                newData.specificData.colors[eachColorTypeKey][eachColorKey] = e.target.value
 
                                                 return newData
                                             })

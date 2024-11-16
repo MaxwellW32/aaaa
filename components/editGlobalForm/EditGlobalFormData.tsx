@@ -3,7 +3,7 @@ import { globalFormDataJotaiGlobal } from '@/jotai'
 import { useAtom } from 'jotai'
 import React, { useState, useEffect } from 'react'
 import styles from "./style.module.css"
-import { contactComponentType, formInputType, globalFormDataKeys, globalFormDataType, syncFromServerSchema } from '@/types'
+import { contactComponentType, formInputType, globalFormDataSchema, globalFormDataSpecificData, globalFormDataType } from '@/types'
 import CustomizeColors from './CustomizeColors'
 
 //this handles all form info for the website
@@ -18,7 +18,7 @@ export default function EditGlobalFormData() {
     const [showingForm, showingFormSet] = useState<boolean | null>(false) //enusre this is null in production
 
     const [currentPage, currentPageSet] = useState("home")
-    const [formTabSelection, formTabSelectionSet] = useState<globalFormDataKeys>("pages")
+    const [formTabSelection, formTabSelectionSet] = useState<globalFormDataSpecificData>("pages")
 
     const [receivedSyncData, receivedSyncDataSet] = useState<boolean>(false)
 
@@ -26,14 +26,11 @@ export default function EditGlobalFormData() {
     useEffect(() => {
         function handleMessage(message: MessageEvent<unknown>) {
             try {
-                //start reading once we see a sentGlobalFormData
+                //start reading once we see data in the correct format
                 const seenResponse = message.data
-                const seenServerSyncData = syncFromServerSchema.parse(seenResponse)
+                const seenServerSyncData = globalFormDataSchema.parse(seenResponse)
 
-                //set form data - make it match schema
-                if (seenServerSyncData.sentGlobalFormData !== null) {
-                    globalFormDataJotaiSet(seenServerSyncData.sentGlobalFormData)
-                }
+                globalFormDataJotaiSet(seenServerSyncData)
 
                 console.log(`$template got sync request`);
 
@@ -60,7 +57,7 @@ export default function EditGlobalFormData() {
         //mirror of whats in globalFormData.tsx
         window.parent.postMessage({
             fromTemplate: "aaaa",
-            globalFormData: globalFormDataJotai
+            specificData: globalFormDataJotai.specificData
         }, "*")
     }, [receivedSyncData, globalFormDataJotai])
 
@@ -77,8 +74,8 @@ export default function EditGlobalFormData() {
             <form style={{ display: showingForm ? "" : "none" }} className={styles.form} action={() => { }}>
                 {/* form tab options */}
                 <div style={{ display: "flex", gap: ".5rem", overflowX: "auto", height: "5rem", alignItems: "flex-start" }}>
-                    {Object.entries(globalFormDataJotai).map(eachFormTabEntry => {
-                        const eachFormTabKey = eachFormTabEntry[0] as globalFormDataKeys
+                    {Object.entries(globalFormDataJotai.specificData).map(eachFormTabEntry => {
+                        const eachFormTabKey = eachFormTabEntry[0] as globalFormDataSpecificData
 
                         return (
                             <button key={eachFormTabKey} className={styles.secondaryButton} style={{ flex: "0 0 auto", color: eachFormTabKey === formTabSelection ? "var(--color1)" : "" }}
@@ -92,61 +89,20 @@ export default function EditGlobalFormData() {
 
                 {/* different form fields */}
                 <div>
-                    {Object.entries(globalFormDataJotai).map(eachFormTabEntry => {
-                        const eachFormTabKey = eachFormTabEntry[0] as globalFormDataKeys
+                    {Object.entries(globalFormDataJotai.specificData).map(eachFormTabEntry => {
+                        const eachFormTabKey = eachFormTabEntry[0] as globalFormDataSpecificData
 
                         return (
                             <div key={eachFormTabKey} style={{ display: eachFormTabKey === formTabSelection ? "grid" : "none" }}>
-                                {eachFormTabKey === "siteInfo" ? (
+                                {eachFormTabKey === "colors" ? (
                                     <>
-                                        {/* site info */}
-                                        {Object.entries(globalFormDataJotai.siteInfo).map(siteInfoEntry => {
-                                            // will remove later
-                                            const siteInfoKey = siteInfoEntry[0] as keyof globalFormDataType["siteInfo"]
-                                            const siteInfoValue = siteInfoEntry[1]
-
-                                            return (
-                                                <div key={siteInfoKey} className={styles.formInputCont}>
-                                                    <label>website {siteInfoKey}</label>
-
-                                                    {typeof siteInfoValue === "object" ? (
-                                                        <>
-                                                            {/* customize colors */}
-                                                            {siteInfoKey === "colors" && <CustomizeColors />}
-
-                                                            {/* customize fonts */}
-                                                        </>
-                                                    ) : (
-                                                        // all string inputs
-                                                        <input type={"text"} name={siteInfoKey} value={siteInfoValue} placeholder={siteInfoKey} onChange={(e) => {
-                                                            globalFormDataJotaiSet(prevData => {
-                                                                const newData = { ...prevData }
-
-                                                                if (typeof newData.siteInfo[siteInfoKey] === "string") {
-                                                                    let seenText = e.target.value
-
-                                                                    // ensure website name is hyphenated
-                                                                    if (siteInfoKey === "name") {
-                                                                        seenText = seenText.replace(/\s+/g, '-')
-                                                                    }
-
-                                                                    //@ts-expect-error typescript not seeing difference
-                                                                    newData.siteInfo[siteInfoKey] = seenText
-                                                                }
-
-                                                                return newData
-                                                            })
-                                                        }} />
-                                                    )}
-                                                </div>
-                                            )
-                                        })}
+                                        <CustomizeColors />
                                     </>
                                 ) : eachFormTabKey === "pages" ? (
                                     <>
                                         {/* form page selection */}
                                         <div style={{ display: "flex", gap: ".5rem", alignItems: "center", overflowX: "auto" }}>
-                                            {Object.entries(globalFormDataJotai.pages).map(eachPageEntry => {
+                                            {Object.entries(globalFormDataJotai.specificData.pages).map(eachPageEntry => {
                                                 const eachPageName = eachPageEntry[0]
 
                                                 return (
@@ -160,7 +116,7 @@ export default function EditGlobalFormData() {
                                         </div>
 
                                         {/* form page inputs */}
-                                        {Object.entries(globalFormDataJotai.pages).map(eachPageEntry => {
+                                        {Object.entries(globalFormDataJotai.specificData.pages).map(eachPageEntry => {
                                             const eachPageKey = eachPageEntry[0] //e.g Home
                                             const eachPageSections = eachPageEntry[1]
 
@@ -177,11 +133,11 @@ export default function EditGlobalFormData() {
                                                                     onClick={() => {
                                                                         globalFormDataJotaiSet(prevData => {
                                                                             const newData = { ...prevData }
-                                                                            if (newData.pages[eachPageKey][eachSectionKey].using === undefined) {
-                                                                                newData.pages[eachPageKey][eachSectionKey].using = false
+                                                                            if (newData.specificData.pages[eachPageKey][eachSectionKey].using === undefined) {
+                                                                                newData.specificData.pages[eachPageKey][eachSectionKey].using = false
 
                                                                             } else {
-                                                                                newData.pages[eachPageKey][eachSectionKey].using = !newData.pages[eachPageKey][eachSectionKey].using
+                                                                                newData.specificData.pages[eachPageKey][eachSectionKey].using = !newData.specificData.pages[eachPageKey][eachSectionKey].using
                                                                             }
                                                                             return newData
                                                                         })
@@ -210,7 +166,7 @@ export default function EditGlobalFormData() {
                                                                                             globalFormDataJotaiSet(prevData => {
                                                                                                 const newData = { ...prevData }
 
-                                                                                                const seenSectionObj = newData.pages[eachPageKey][eachSectionKey]
+                                                                                                const seenSectionObj = newData.specificData.pages[eachPageKey][eachSectionKey]
 
                                                                                                 if (seenSectionObj.fieldType === "contactComponent") {
                                                                                                     seenSectionObj.component = seenSectionObj.component.filter((eachCompSeen, eachCompSeenIndex) => eachCompSeenIndex === eachContactObjIndex)
@@ -247,7 +203,7 @@ export default function EditGlobalFormData() {
                                                                                                 globalFormDataJotaiSet(prevData => {
                                                                                                     const newData = { ...prevData }
 
-                                                                                                    const seenSectionObj = newData.pages[eachPageKey][eachSectionKey]
+                                                                                                    const seenSectionObj = newData.specificData.pages[eachPageKey][eachSectionKey]
 
                                                                                                     const newTextObj: formInputType = {
                                                                                                         fieldType: "input",
@@ -273,7 +229,7 @@ export default function EditGlobalFormData() {
                                                                                 globalFormDataJotaiSet(prevData => {
                                                                                     const newData = { ...prevData }
 
-                                                                                    const seenSectionObj = newData.pages[eachPageKey][eachSectionKey]
+                                                                                    const seenSectionObj = newData.specificData.pages[eachPageKey][eachSectionKey]
 
                                                                                     if (seenSectionObj.fieldType === "contactComponent") {
                                                                                         const newComponent: contactComponentType["component"][number] = {
@@ -310,8 +266,8 @@ export default function EditGlobalFormData() {
                                 ) : eachFormTabKey === "navLinks" ? (
                                     <>
                                         {/* form nav links */}
-                                        {Object.entries(globalFormDataJotai.navLinks).map(eachNavOptionEntry => {
-                                            const eachNavOptionName = eachNavOptionEntry[0] as keyof globalFormDataType["navLinks"]
+                                        {Object.entries(globalFormDataJotai.specificData.navLinks).map(eachNavOptionEntry => {
+                                            const eachNavOptionName = eachNavOptionEntry[0] as keyof globalFormDataType["specificData"]["navLinks"]
                                             const eachNavOptionData = eachNavOptionEntry[1]
 
                                             return (
@@ -352,7 +308,7 @@ function DisplayFormInfo({ inputObj, inputKey, eachPageKey, eachSectionKey, seen
                     globalFormDataJotaiSet(prevData => {
                         const newData = { ...prevData }
 
-                        const seenSectionObj = newData.pages[eachPageKey][eachSectionKey]
+                        const seenSectionObj = newData.specificData.pages[eachPageKey][eachSectionKey]
 
                         if (seenSectionObj.fieldType === undefined || seenSectionObj.fieldType === "section") {
                             seenSectionObj.inputs[inputKey].value = e.target.value
@@ -382,7 +338,7 @@ function DisplayFormInfo({ inputObj, inputKey, eachPageKey, eachSectionKey, seen
                         if (isNaN(parsedNum)) parsedNum = 0
 
 
-                        const seenSectionObj = newData.pages[eachPageKey][eachSectionKey]
+                        const seenSectionObj = newData.specificData.pages[eachPageKey][eachSectionKey]
 
                         if (seenSectionObj.fieldType === undefined || seenSectionObj.fieldType === "section") {
                             seenSectionObj.inputs[inputKey].value = parsedNum
@@ -410,7 +366,7 @@ function DisplayFormInfo({ inputObj, inputKey, eachPageKey, eachSectionKey, seen
                     globalFormDataJotaiSet(prevData => {
                         const newData = { ...prevData }
 
-                        const seenSectionObj = newData.pages[eachPageKey][eachSectionKey]
+                        const seenSectionObj = newData.specificData.pages[eachPageKey][eachSectionKey]
 
                         //@ts-expect-error value exits on text area
                         const seenText = e.target.value

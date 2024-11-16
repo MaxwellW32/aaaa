@@ -18,8 +18,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: globalFormData.siteInfo.title,
-  description: globalFormData.siteInfo.description,
+  title: globalFormData.sharedData !== null ? globalFormData.sharedData.siteInfo.websiteTitle : "",
+  description: globalFormData.sharedData !== null ? globalFormData.sharedData.siteInfo.websiteDescription : "",
 };
 
 export default function RootLayout({
@@ -30,11 +30,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={{
-        "--color1": globalFormData.siteInfo.colors.mainColors.color1, "--color2": globalFormData.siteInfo.colors.mainColors.color2, "--color3": globalFormData.siteInfo.colors.mainColors.color3, "--color4": globalFormData.siteInfo.colors.mainColors.color4, "--color5": globalFormData.siteInfo.colors.mainColors.color5, "--color6": globalFormData.siteInfo.colors.mainColors.color6, "--color7": globalFormData.siteInfo.colors.mainColors.color7,
+        "--color1": globalFormData.specificData.colors.mainColors.color1, "--color2": globalFormData.specificData.colors.mainColors.color2, "--color3": globalFormData.specificData.colors.mainColors.color3, "--color4": globalFormData.specificData.colors.mainColors.color4, "--color5": globalFormData.specificData.colors.mainColors.color5, "--color6": globalFormData.specificData.colors.mainColors.color6, "--color7": globalFormData.specificData.colors.mainColors.color7,
 
-        "--shade1": globalFormData.siteInfo.colors.shades.shade1, "--shade2": globalFormData.siteInfo.colors.shades.shade2, "--shade3": globalFormData.siteInfo.colors.shades.shade3,
+        "--shade1": globalFormData.specificData.colors.shades.shade1, "--shade2": globalFormData.specificData.colors.shades.shade2, "--shade3": globalFormData.specificData.colors.shades.shade3,
 
-        "--bg1": globalFormData.siteInfo.colors.background.bg1, "--bg2": globalFormData.siteInfo.colors.background.bg2,
+        "--bg1": globalFormData.specificData.colors.background.bg1, "--bg2": globalFormData.specificData.colors.background.bg2,
       } as React.CSSProperties}
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

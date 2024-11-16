@@ -4,7 +4,7 @@ import Image from "next/image";
 import oldLady from "@/public/old lady.png"
 import WhatAwaits from "@/components/whatAwaits/WhatAwaits";
 import Services from "@/components/services/Services";
-import ContactUs from "@/components/contact/ContactUs";
+// import ContactUs from "@/components/contact/ContactUs";
 import { useAtom } from "jotai";
 import { globalFormDataJotaiGlobal } from "@/jotai";
 
@@ -13,11 +13,11 @@ export default function Home() {
 
   return (
     <main>
-      {!globalFormDataJotai.pages.home.section1.fieldType && globalFormDataJotai.pages.home.section1.using && (
+      {!globalFormDataJotai.specificData.pages.home.section1.fieldType && globalFormDataJotai.specificData.pages.home.section1.using && (
         <div>
-          <p>{globalFormDataJotai.pages.home.section1.inputs.text1.value}</p>
-          <p>{globalFormDataJotai.pages.home.section1.inputs.text2.value}</p>
-          <p>{globalFormDataJotai.pages.home.section1.inputs.text3.value}</p>
+          <p>{globalFormDataJotai.specificData.pages.home.section1.inputs.text1.value}</p>
+          <p>{globalFormDataJotai.specificData.pages.home.section1.inputs.text2.value}</p>
+          <p>{globalFormDataJotai.specificData.pages.home.section1.inputs.text3.value}</p>
         </div>
       )}
 

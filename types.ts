@@ -1,5 +1,92 @@
 import { z } from "zod";
 
+// on template now
+// start can copy on templates //
+export const testimonialSchema = z.array(z.object({
+    name: z.string(),
+    position: z.string(),
+    photo: z.string(),
+    text: z.string(),
+    rating: z.number(),
+    date: z.string(),
+    links: z.array(z.string()),
+    company: z.string(),
+}))
+
+export const sharedDataSchema = z.object({
+    siteInfo: z.object({
+        phone: z.string(),
+        address: z.string(),
+        websiteTitle: z.string(),
+        websiteDescription: z.string(),
+        logo: z.string(),
+        opengraphLogo: z.string(),
+        email: z.string(),
+        workingHours: z.string(),
+        favicon: z.string(),
+        copyrightInformation: z.string(),
+    }),
+    testimonials: testimonialSchema,
+    team: z.array(z.object({
+        name: z.string(),
+        position: z.string(),
+        photo: z.string(),
+        bio: z.string(),
+        links: z.array(z.string()),
+        email: z.string(),
+        phone: z.string(),
+        skills: z.array(z.string()),
+        achievements: z.array(z.string()),
+    })),
+    products: z.array(z.object({
+        name: z.string(),
+        description: z.string(),
+        price: z.number(),
+        images: z.array(z.string()),
+        sku: z.string(),
+        categories: z.array(z.string()),
+        tags: z.array(z.string()),
+        available: z.boolean(),
+        featured: z.boolean(),
+        discounts: z.string(),
+        ratings: z.number(),
+    })),
+    gallery: z.array(z.object({
+        title: z.string(),
+        description: z.string(),
+        image: z.string(),
+        categories: z.array(z.string()),
+        tags: z.array(z.string()),
+        featured: z.boolean(),
+        date: z.string(),
+        author: z.string(),
+    })),
+    services: z.array(z.object({
+        title: z.string(),
+        description: z.string(),
+        price: z.number(),
+        icon: z.string(),
+        duration: z.string(),
+        tags: z.array(z.string()),
+        callToAction: z.string(),
+        availability: z.string(),
+        serviceTestimonials: testimonialSchema,
+    })),
+    socials: z.array(z.object({
+        platform: z.string(),
+        url: z.string(),
+        icon: z.string(),
+        description: z.string(),
+    })),
+})
+export type sharedDataType = z.infer<typeof sharedDataSchema>
+// end can copy on templates //
+
+
+
+
+
+
 // Input Type Schema
 const inputTypeSchema = z.object({
     label: z.string().optional(),
@@ -115,53 +202,51 @@ const pageSectionUnionSchema = z.union([
 ]);
 
 
-export const globalFormDataSchema = z.object({
-    siteInfo: z.object({
-        name: z.string().min(1),
-        fonts: z.array(z.string()),
 
-        title: z.string().min(1),
-        description: z.string().min(1),
-        favIcon: z.string(),
-        colors: z.record(
-            z.string(),//color type key - e.g mainColors
+
+export const globalFormDataSchema = z.object({
+    sharedData: sharedDataSchema.nullable(),
+    specificData: z.object({
+        pages: z.record(
+            z.string(), // key for each page
             z.record(
-                z.string(), //color key - e.g color1
-                z.string()
+                z.string(), // key for each section or component
+                pageSectionUnionSchema
+            )
+        ),
+        navLinks: z.object({
+            header: z.array(
+                z.object({
+                    title: z.string(),
+                    link: z.string()
+                })
             ),
-        ),
-    }),
-    pages: z.record(
-        z.string(), // key for each page
-        z.record(
-            z.string(), // key for each section or component
-            pageSectionUnionSchema
-        )
-    ),
-    navLinks: z.object({
-        header: z.array(
-            z.object({
-                title: z.string(),
-                link: z.string()
-            })
-        ),
-        footer: z.array(
-            z.object({
-                title: z.string(),
-                link: z.string()
-            })
+            footer: z.array(
+                z.object({
+                    title: z.string(),
+                    link: z.string()
+                })
+            )
+        }),
+        colors: z.record(
+            z.string(),
+            z.record(
+                z.string(),
+                z.string()
+            )
         )
     })
 });
 export type globalFormDataType = z.infer<typeof globalFormDataSchema>
-export type globalFormDataKeys = keyof globalFormDataType
+export type globalFormDataSpecificData = keyof globalFormDataType["specificData"]
 
-//the data type for all templates globalFormData obj
-//ensures the data we get back from the server will work for this template
-export const syncFromServerSchema = z.object({
-    sentGlobalFormData: globalFormDataSchema.nullable()
-})
-export type syncFromServerType = z.infer<typeof syncFromServerSchema>
+
+
+
+
+
+
+
 
 
 
