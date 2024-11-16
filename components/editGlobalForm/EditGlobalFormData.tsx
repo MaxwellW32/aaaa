@@ -3,7 +3,7 @@ import { globalFormDataJotaiGlobal } from '@/jotai'
 import { useAtom } from 'jotai'
 import React, { useState, useEffect } from 'react'
 import styles from "./style.module.css"
-import { contactComponentType, formInputType, globalFormDataSchema, globalFormDataSpecificData, globalFormDataType } from '@/types'
+import { contactComponentType, formInputType, globalFormDataSpecificData, globalFormDataType, syncWithServerSchema } from '@/types'
 import CustomizeColors from './CustomizeColors'
 
 //this handles all form info for the website
@@ -28,9 +28,21 @@ export default function EditGlobalFormData() {
             try {
                 //start reading once we see data in the correct format
                 const seenResponse = message.data
-                const seenServerSyncData = globalFormDataSchema.parse(seenResponse)
+                const seenServerSyncData = syncWithServerSchema.parse(seenResponse)
 
-                globalFormDataJotaiSet(seenServerSyncData)
+                globalFormDataJotaiSet(prevGlobalFormData => {
+                    const newGlobalFormData = { ...prevGlobalFormData }
+
+                    if (seenServerSyncData.sharedData !== null) {
+                        newGlobalFormData.sharedData = seenServerSyncData.sharedData
+                    }
+
+                    if (seenServerSyncData.specificData !== null) {
+                        newGlobalFormData.specificData = seenServerSyncData.specificData
+                    }
+
+                    return newGlobalFormData
+                })
 
                 console.log(`$template got sync request`);
 
@@ -50,14 +62,13 @@ export default function EditGlobalFormData() {
         }
     }, [])
 
-    //send current form to main website
+    //send template specific data to main website
     useEffect(() => {
         if (!receivedSyncData) return
 
-        //mirror of whats in globalFormData.tsx
         window.parent.postMessage({
             fromTemplate: "aaaa",
-            specificData: globalFormDataJotai.specificData
+            specificData: JSON.parse(JSON.stringify(globalFormDataJotai.specificData))
         }, "*")
     }, [receivedSyncData, globalFormDataJotai])
 

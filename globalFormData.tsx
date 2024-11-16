@@ -1,6 +1,5 @@
 import { globalFormDataType } from "@/types";
 
-
 export const globalFormData: globalFormDataType = {
     sharedData: null,
     specificData: {

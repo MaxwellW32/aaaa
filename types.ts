@@ -17,6 +17,7 @@ export const sharedDataSchema = z.object({
     siteInfo: z.object({
         phone: z.string(),
         address: z.string(),
+        websiteName: z.string(),
         websiteTitle: z.string(),
         websiteDescription: z.string(),
         logo: z.string(),
@@ -81,6 +82,7 @@ export const sharedDataSchema = z.object({
 })
 export type sharedDataType = z.infer<typeof sharedDataSchema>
 // end can copy on templates //
+
 
 
 
@@ -201,44 +203,54 @@ const pageSectionUnionSchema = z.union([
     contactComponentTypeSchema
 ]);
 
-
-
+export const specificDataSchema = z.object({
+    pages: z.record(
+        z.string(), // key for each page
+        z.record(
+            z.string(), // key for each section or component
+            pageSectionUnionSchema
+        )
+    ),
+    navLinks: z.object({
+        header: z.array(
+            z.object({
+                title: z.string(),
+                link: z.string()
+            })
+        ),
+        footer: z.array(
+            z.object({
+                title: z.string(),
+                link: z.string()
+            })
+        )
+    }),
+    colors: z.record(
+        z.string(),
+        z.record(
+            z.string(),
+            z.string()
+        )
+    )
+})
 
 export const globalFormDataSchema = z.object({
     sharedData: sharedDataSchema.nullable(),
-    specificData: z.object({
-        pages: z.record(
-            z.string(), // key for each page
-            z.record(
-                z.string(), // key for each section or component
-                pageSectionUnionSchema
-            )
-        ),
-        navLinks: z.object({
-            header: z.array(
-                z.object({
-                    title: z.string(),
-                    link: z.string()
-                })
-            ),
-            footer: z.array(
-                z.object({
-                    title: z.string(),
-                    link: z.string()
-                })
-            )
-        }),
-        colors: z.record(
-            z.string(),
-            z.record(
-                z.string(),
-                z.string()
-            )
-        )
-    })
+    specificData: specificDataSchema
 });
 export type globalFormDataType = z.infer<typeof globalFormDataSchema>
 export type globalFormDataSpecificData = keyof globalFormDataType["specificData"]
+
+
+
+
+
+export const syncWithServerSchema = z.object({
+    sharedData: sharedDataSchema.nullable(),
+    specificData: specificDataSchema.nullable()
+})
+export type syncWithServerType = z.infer<typeof syncWithServerSchema>
+
 
 
 
