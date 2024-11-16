@@ -99,7 +99,6 @@ const inputTypeSchema = z.object({
 });
 export type inputType = z.infer<typeof inputTypeSchema>
 
-
 // Textarea Type Schema
 const textareaTypeSchema = z.object({
     label: z.string().optional(),

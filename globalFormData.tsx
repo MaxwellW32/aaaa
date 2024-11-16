@@ -24,7 +24,7 @@ export const globalFormData: globalFormDataType = {
 
                         },
                     },
-
+                    fieldType: "section",
                     using: true,
                 },
                 section2: {

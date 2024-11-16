@@ -4,7 +4,7 @@ import Image from "next/image";
 import oldLady from "@/public/old lady.png"
 import WhatAwaits from "@/components/whatAwaits/WhatAwaits";
 import Services from "@/components/services/Services";
-// import ContactUs from "@/components/contact/ContactUs";
+import ContactUs from "@/components/contact/ContactUs";
 import { useAtom } from "jotai";
 import { globalFormDataJotaiGlobal } from "@/jotai";
 
@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <main>
-      {!globalFormDataJotai.specificData.pages.home.section1.fieldType && globalFormDataJotai.specificData.pages.home.section1.using && (
+      {globalFormDataJotai.specificData.pages.home.section1.fieldType === "section" && globalFormDataJotai.specificData.pages.home.section1.using && (
         <div>
           <p>{globalFormDataJotai.specificData.pages.home.section1.inputs.text1.value}</p>
           <p>{globalFormDataJotai.specificData.pages.home.section1.inputs.text2.value}</p>
@@ -156,11 +156,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* {globalFormDataJotai.pages.home.section2.fieldType === "contactComponent" && globalFormDataJotai.pages.home.section2.using && (
+      {globalFormDataJotai.specificData.pages.home.section2.fieldType === "contactComponent" && globalFormDataJotai.specificData.pages.home.section2.using && (
         <section style={{ backgroundColor: "var(--color5)" }}>
-          <ContactUs contacts={globalFormDataJotai.pages.home.section2.component} />
+          <ContactUs contacts={globalFormDataJotai.specificData.pages.home.section2.component} />
         </section>
-      )} */}
+      )}
     </main>
   );
 }
