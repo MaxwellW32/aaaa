@@ -244,11 +244,21 @@ export type globalFormDataSpecificData = keyof globalFormDataType["specificData"
 
 
 
-export const syncWithServerSchema = z.object({
+export const syncWithServerSharedDataSchema = z.object({
     sharedData: sharedDataSchema.nullable(),
+})
+export type syncWithServerSharedDataType = z.infer<typeof syncWithServerSharedDataSchema>
+
+export const syncWithServerSpecificDataSchema = z.object({
     specificData: specificDataSchema.nullable()
 })
-export type syncWithServerType = z.infer<typeof syncWithServerSchema>
+export type syncWithServerSpecificDataType = z.infer<typeof syncWithServerSpecificDataSchema>
+
+// export const syncWithServerSchema = z.object({
+//     sharedData: sharedDataSchema.nullable(),
+//     specificData: specificDataSchema.nullable()
+// })
+// export type syncWithServerType = z.infer<typeof syncWithServerSchema>
 
 
 

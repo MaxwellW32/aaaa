@@ -3,7 +3,7 @@ import { globalFormDataJotaiGlobal } from '@/jotai'
 import { useAtom } from 'jotai'
 import React, { useState, useEffect } from 'react'
 import styles from "./style.module.css"
-import { contactComponentType, formInputType, globalFormDataSpecificData, globalFormDataType, syncWithServerSchema } from '@/types'
+import { contactComponentType, formInputType, globalFormDataSpecificData, globalFormDataType, syncWithServerSharedDataSchema, syncWithServerSpecificDataSchema } from '@/types'
 import CustomizeColors from './CustomizeColors'
 
 //this handles all form info for the website
@@ -22,29 +22,44 @@ export default function EditGlobalFormData() {
 
     const [receivedSyncData, receivedSyncDataSet] = useState<boolean>(false)
 
-    //check and load save data
+    //listen to and load data
     useEffect(() => {
         function handleMessage(message: MessageEvent<unknown>) {
             try {
                 //start reading once we see data in the correct format
                 const seenResponse = message.data
-                const seenServerSyncData = syncWithServerSchema.parse(seenResponse)
+                const seenSyncWithServerSharedData = syncWithServerSharedDataSchema.safeParse(seenResponse)
+                const seenSyncWithServerSpecificData = syncWithServerSpecificDataSchema.safeParse(seenResponse)
 
-                globalFormDataJotaiSet(prevGlobalFormData => {
-                    const newGlobalFormData = { ...prevGlobalFormData }
+                // handle shared data update           
+                if (seenSyncWithServerSharedData.success) {
+                    globalFormDataJotaiSet(prevGlobalFormData => {
+                        const newGlobalFormData = { ...prevGlobalFormData }
 
-                    if (seenServerSyncData.sharedData !== null) {
-                        newGlobalFormData.sharedData = seenServerSyncData.sharedData
-                    }
+                        if (seenSyncWithServerSharedData.data.sharedData !== null) {
+                            newGlobalFormData.sharedData = seenSyncWithServerSharedData.data.sharedData
+                        }
 
-                    if (seenServerSyncData.specificData !== null) {
-                        newGlobalFormData.specificData = seenServerSyncData.specificData
-                    }
+                        return newGlobalFormData
+                    })
 
-                    return newGlobalFormData
-                })
+                    console.log(`$template got sync request for shared data`);
+                }
 
-                console.log(`$template got sync request`);
+                // handle specific data update
+                if (seenSyncWithServerSpecificData.success) {
+                    globalFormDataJotaiSet(prevGlobalFormData => {
+                        const newGlobalFormData = { ...prevGlobalFormData }
+
+                        if (seenSyncWithServerSpecificData.data.specificData !== null) {
+                            newGlobalFormData.specificData = seenSyncWithServerSpecificData.data.specificData
+                        }
+
+                        return newGlobalFormData
+                    })
+
+                    console.log(`$template got sync request for specific data`);
+                }
 
                 showingFormSet(false)
 
@@ -70,7 +85,7 @@ export default function EditGlobalFormData() {
             fromTemplate: "aaaa",
             specificData: JSON.parse(JSON.stringify(globalFormDataJotai.specificData))
         }, "*")
-    }, [receivedSyncData, globalFormDataJotai])
+    }, [receivedSyncData, globalFormDataJotai.specificData])
 
     return (
         <div className={styles.formCont}>
@@ -144,6 +159,9 @@ export default function EditGlobalFormData() {
                                                                     onClick={() => {
                                                                         globalFormDataJotaiSet(prevData => {
                                                                             const newData = { ...prevData }
+                                                                            //refresh specific data for useEffect
+                                                                            newData.specificData = { ...newData.specificData }
+
                                                                             if (newData.specificData.pages[eachPageKey][eachSectionKey].using === undefined) {
                                                                                 newData.specificData.pages[eachPageKey][eachSectionKey].using = false
 
@@ -176,6 +194,8 @@ export default function EditGlobalFormData() {
                                                                                         onClick={() => {
                                                                                             globalFormDataJotaiSet(prevData => {
                                                                                                 const newData = { ...prevData }
+                                                                                                //refresh specific data for useEffect
+                                                                                                newData.specificData = { ...newData.specificData }
 
                                                                                                 const seenSectionObj = newData.specificData.pages[eachPageKey][eachSectionKey]
 
@@ -213,6 +233,8 @@ export default function EditGlobalFormData() {
                                                                                             onClick={() => {
                                                                                                 globalFormDataJotaiSet(prevData => {
                                                                                                     const newData = { ...prevData }
+                                                                                                    //refresh specific data for useEffect
+                                                                                                    newData.specificData = { ...newData.specificData }
 
                                                                                                     const seenSectionObj = newData.specificData.pages[eachPageKey][eachSectionKey]
 
@@ -239,6 +261,8 @@ export default function EditGlobalFormData() {
                                                                             onClick={() => {
                                                                                 globalFormDataJotaiSet(prevData => {
                                                                                     const newData = { ...prevData }
+                                                                                    //refresh specific data for useEffect
+                                                                                    newData.specificData = { ...newData.specificData }
 
                                                                                     const seenSectionObj = newData.specificData.pages[eachPageKey][eachSectionKey]
 
@@ -318,6 +342,8 @@ function DisplayFormInfo({ inputObj, inputKey, eachPageKey, eachSectionKey, seen
                 <input id={inputKey} type={"text"} name={inputKey} value={inputObj.value} placeholder={inputObj.placeHolder ?? "type your text here"} onChange={(e) => {
                     globalFormDataJotaiSet(prevData => {
                         const newData = { ...prevData }
+                        //refresh specific data for useEffect
+                        newData.specificData = { ...newData.specificData }
 
                         const seenSectionObj = newData.specificData.pages[eachPageKey][eachSectionKey]
 
@@ -345,6 +371,9 @@ function DisplayFormInfo({ inputObj, inputKey, eachPageKey, eachSectionKey, seen
                 <input id={inputKey} type={"text"} name={inputKey} value={`${inputObj.value}`} placeholder={inputObj.placeHolder ?? "type numbers here"} onChange={(e) => {
                     globalFormDataJotaiSet(prevData => {
                         const newData = { ...prevData }
+                        //refresh specific data for useEffect
+                        newData.specificData = { ...newData.specificData }
+
                         let parsedNum = parseFloat(e.target.value)
                         if (isNaN(parsedNum)) parsedNum = 0
 
@@ -376,6 +405,8 @@ function DisplayFormInfo({ inputObj, inputKey, eachPageKey, eachSectionKey, seen
                 <textarea rows={5} id={inputKey} name={inputKey} value={inputObj.value} placeholder={inputObj.placeHolder ?? "type your text here"} onInput={(e) => {
                     globalFormDataJotaiSet(prevData => {
                         const newData = { ...prevData }
+                        //refresh specific data for useEffect
+                        newData.specificData = { ...newData.specificData }
 
                         const seenSectionObj = newData.specificData.pages[eachPageKey][eachSectionKey]
 
