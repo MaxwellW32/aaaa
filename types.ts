@@ -17,7 +17,7 @@ export const sharedDataSchema = z.object({
     siteInfo: z.object({
         phone: z.string(),
         address: z.string(),
-        websiteName: z.string(),
+        websiteName: z.string().min(1),
         websiteTitle: z.string(),
         websiteDescription: z.string(),
         logo: z.string(),
@@ -51,6 +51,7 @@ export const sharedDataSchema = z.object({
         featured: z.boolean(),
         discounts: z.string(),
         ratings: z.number(),
+        productTestimonials: testimonialSchema,
     })),
     gallery: z.array(z.object({
         title: z.string(),
@@ -82,6 +83,9 @@ export const sharedDataSchema = z.object({
 })
 export type sharedDataType = z.infer<typeof sharedDataSchema>
 // end can copy on templates //
+
+
+
 
 
 
@@ -202,6 +206,15 @@ const pageSectionUnionSchema = z.union([
     contactComponentTypeSchema
 ]);
 
+
+
+
+
+
+
+
+
+
 export const specificDataSchema = z.object({
     pages: z.record(
         z.string(), // key for each page
@@ -244,6 +257,11 @@ export type globalFormDataSpecificData = keyof globalFormDataType["specificData"
 
 
 
+
+
+
+
+
 export const syncWithServerSharedDataSchema = z.object({
     sharedData: sharedDataSchema.nullable(),
 })
@@ -253,17 +271,6 @@ export const syncWithServerSpecificDataSchema = z.object({
     specificData: specificDataSchema.nullable()
 })
 export type syncWithServerSpecificDataType = z.infer<typeof syncWithServerSpecificDataSchema>
-
-// export const syncWithServerSchema = z.object({
-//     sharedData: sharedDataSchema.nullable(),
-//     specificData: specificDataSchema.nullable()
-// })
-// export type syncWithServerType = z.infer<typeof syncWithServerSchema>
-
-
-
-
-
 
 
 
