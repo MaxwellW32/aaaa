@@ -1,5 +1,10 @@
 import { globalFormDataType } from "@/types";
 
+import img from "@/public/old lady.png"
+console.log(`$img`, img);
+
+//woo more values
+
 export const globalFormData: globalFormDataType = {
     specificData: {
         pages: {
@@ -157,4 +162,6 @@ export const globalFormData: globalFormDataType = {
         testimonials: [],
     },
 }
+
+//woo more values below
 
