@@ -5,6 +5,7 @@ console.log(`$img`, img);
 
 //woo more values
 
+//<<globalFormDataStart>> needed string - dont remove
 export const globalFormData: globalFormDataType = {
     specificData: {
         pages: {
@@ -162,6 +163,7 @@ export const globalFormData: globalFormDataType = {
         testimonials: [],
     },
 }
+//<<globalFormDataEnd>> needed string - dont remove
 
 //woo more values below
 
