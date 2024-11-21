@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 // on template now
-// start can copy on templates //
+// start copy on templates //
 export const testimonialSchema = z.array(z.object({
     name: z.string(),
     position: z.string(),
@@ -13,7 +13,7 @@ export const testimonialSchema = z.array(z.object({
     company: z.string(),
 }))
 
-export const sharedDataSchema = z.object({
+export const linkedDataSchema = z.object({
     siteInfo: z.object({
         phone: z.string(),
         address: z.string(),
@@ -81,8 +81,8 @@ export const sharedDataSchema = z.object({
         description: z.string(),
     })),
 })
-export type sharedDataType = z.infer<typeof sharedDataSchema>
-// end can copy on templates //
+export type linkedDataType = z.infer<typeof linkedDataSchema>
+// end copy on templates //
 
 
 
@@ -92,7 +92,7 @@ export type sharedDataType = z.infer<typeof sharedDataSchema>
 
 
 
-
+//start copy specific data on template//
 // Input Type Schema
 const inputTypeSchema = z.object({
     label: z.string().optional(),
@@ -207,14 +207,6 @@ const pageSectionUnionSchema = z.union([
 ]);
 
 
-
-
-
-
-
-
-
-
 export const specificDataSchema = z.object({
     pages: z.record(
         z.string(), // key for each page
@@ -243,39 +235,21 @@ export const specificDataSchema = z.object({
             z.string(),
             z.string()
         )
-    )
+    ),
+    forTemplate: z.literal("aaaa"),
 })
+//end copy specific data on template//
+
+
+
+
 
 export const globalFormDataSchema = z.object({
-    sharedData: sharedDataSchema.nullable(),
-    specificData: specificDataSchema
-});
+    specificData: specificDataSchema,
+    linkedData: linkedDataSchema,
+})
 export type globalFormDataType = z.infer<typeof globalFormDataSchema>
 export type globalFormDataSpecificData = keyof globalFormDataType["specificData"]
-
-
-
-
-
-
-
-
-
-
-export const syncWithServerSharedDataSchema = z.object({
-    sharedData: sharedDataSchema.nullable(),
-})
-export type syncWithServerSharedDataType = z.infer<typeof syncWithServerSharedDataSchema>
-
-export const syncWithServerSpecificDataSchema = z.object({
-    specificData: specificDataSchema.nullable()
-})
-export type syncWithServerSpecificDataType = z.infer<typeof syncWithServerSpecificDataSchema>
-
-
-
-
-
 
 
 

@@ -3,8 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { globalFormData } from "../globalFormData";
 import Nav from "@/components/nav/Nav";
-import EditGlobalFormData from "@/components/editGlobalForm/EditGlobalFormData";
 import React from "react";
+import SyncGlobalFormData from "@/components/syncGlobalForm/SyncGlobalFormData";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -18,8 +18,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: globalFormData.sharedData !== null ? globalFormData.sharedData.siteInfo.websiteTitle : "",
-  description: globalFormData.sharedData !== null ? globalFormData.sharedData.siteInfo.websiteDescription : "",
+  title: globalFormData.linkedData !== null ? globalFormData.linkedData.siteInfo.websiteTitle : "",
+  description: globalFormData.linkedData !== null ? globalFormData.linkedData.siteInfo.websiteDescription : "",
 };
 
 export default function RootLayout({
@@ -39,7 +39,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* in dev load form */}
-        {process.env.IN_DEVELOPMENT === "TRUE" && <EditGlobalFormData />}
+        {process.env.IN_DEVELOPMENT === "TRUE" && <SyncGlobalFormData />}
 
         <Nav />
 

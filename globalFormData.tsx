@@ -1,7 +1,6 @@
 import { globalFormDataType } from "@/types";
 
 export const globalFormData: globalFormDataType = {
-    sharedData: null,
     specificData: {
         pages: {
             home: {
@@ -133,7 +132,29 @@ export const globalFormData: globalFormDataType = {
                 bg1: "#fff",
                 bg2: "#000",
             },
-        }
-    }
+        },
+        forTemplate: "aaaa",
+    },
+    linkedData: {
+        siteInfo: {
+            phone: "(876)123-4567",
+            address: "123 Flavor Street, Culinary City, Foodland",
+            websiteName: "YourRestaurant",
+            websiteTitle: "YourRestaurant - Savor Every Bite",
+            websiteDescription: "Discover mouth-watering dishes and exceptional dining experiences.",
+            logo: "",
+            opengraphLogo: "",
+            email: "info@YourRestaurant.com",
+            workingHours: "Mon-Sun: 10am - 10pm",
+            favicon: "",
+            copyrightInformation: "© 2024 yourRestaurant. All rights reserved.",
+        },
+        gallery: [],
+        products: [],
+        services: [],
+        socials: [],
+        team: [],
+        testimonials: [],
+    },
 }
 
