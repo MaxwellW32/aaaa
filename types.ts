@@ -201,10 +201,7 @@ const contactComponentTypeSchema = z.object({ //section
 })
 export type contactComponentType = z.infer<typeof contactComponentTypeSchema>
 
-const pageSectionUnionSchema = z.union([
-    sectionTypeSchema,
-    contactComponentTypeSchema
-]);
+const pageSectionUnionSchema = z.union([sectionTypeSchema, contactComponentTypeSchema]);
 
 
 export const specificDataSchema = z.object({
