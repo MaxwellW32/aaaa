@@ -1,9 +1,9 @@
 import { globalFormDataType } from "@/types";
 
-import img from "@/public/old lady.png"
-console.log(`$img`, img);
+// import img_0000 from "@/public/old lady.png"
+// console.log(`$img`, img_0000);
 
-//woo more values
+//woo more values above
 
 //<<globalFormDataStart>> needed string - dont remove
 export const globalFormData: globalFormDataType = {

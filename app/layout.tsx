@@ -18,8 +18,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: globalFormData.linkedData !== null ? globalFormData.linkedData.siteInfo.websiteTitle : "",
-  description: globalFormData.linkedData !== null ? globalFormData.linkedData.siteInfo.websiteDescription : "",
+  title: globalFormData.linkedData.siteInfo.websiteTitle,
+  description: globalFormData.linkedData.siteInfo.websiteDescription,
 };
 
 export default function RootLayout({
