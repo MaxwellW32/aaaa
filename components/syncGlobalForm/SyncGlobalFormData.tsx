@@ -20,9 +20,7 @@ export default function SyncGlobalFormData() {
         syncLoop.current = setInterval(() => {
             console.log(`$template sent sync request to main`);
 
-            window.parent.postMessage({
-                globalFormData: globalFormDataJotai,
-            }, "*")
+            window.parent.postMessage(globalFormDataJotai, "*")
         }, 1000)
 
         return () => {
