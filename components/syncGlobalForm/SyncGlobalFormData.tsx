@@ -22,7 +22,6 @@ export default function SyncGlobalFormData() {
 
             window.parent.postMessage({
                 globalFormData: globalFormDataJotai,
-                fromTemplate: "aaaa"
             }, "*")
         }, 1000)
 

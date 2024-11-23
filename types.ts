@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 // on template now
-// start copy on templates //
+// start linked data copy on templates //
 export const testimonialSchema = z.array(z.object({
     name: z.string(),
     position: z.string(),
@@ -82,12 +82,7 @@ export const linkedDataSchema = z.object({
     })),
 })
 export type linkedDataType = z.infer<typeof linkedDataSchema>
-// end copy on templates //
-
-
-
-
-
+// end linked data copy on templates //
 
 
 
@@ -201,7 +196,10 @@ const contactComponentTypeSchema = z.object({ //section
 })
 export type contactComponentType = z.infer<typeof contactComponentTypeSchema>
 
-const pageSectionUnionSchema = z.union([sectionTypeSchema, contactComponentTypeSchema]);
+const pageSectionUnionSchema = z.union([
+    sectionTypeSchema,
+    contactComponentTypeSchema
+]);
 
 
 export const specificDataSchema = z.object({
@@ -233,7 +231,7 @@ export const specificDataSchema = z.object({
             z.string()
         )
     ),
-    forTemplate: z.literal("aaaa"),
+    templateId: z.literal("aaaa"),
 })
 //end copy specific data on template//
 
@@ -251,7 +249,7 @@ export type globalFormDataSpecificData = keyof globalFormDataType["specificData"
 
 
 
-
+// rest of types
 export type menuItem = {
     title: string,
     link: string

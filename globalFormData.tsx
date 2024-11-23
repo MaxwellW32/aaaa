@@ -139,7 +139,7 @@ export const globalFormData: globalFormDataType = {
                 bg2: "#000",
             },
         },
-        forTemplate: "aaaa",
+        templateId: "aaaa",
     },
     linkedData: {
         siteInfo: {
