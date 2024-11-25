@@ -23,7 +23,7 @@ export const linkedDataSchema = z.object({
         logo: z.string(),
         opengraphLogo: z.string(),
         email: z.string(),
-        workingHours: z.string(),
+        workingHours: z.array(z.string()),
         favicon: z.string(),
         copyrightInformation: z.string(),
     }),
@@ -245,6 +245,7 @@ export const globalFormDataSchema = z.object({
 })
 export type globalFormDataType = z.infer<typeof globalFormDataSchema>
 export type globalFormDataSpecificData = keyof globalFormDataType["specificData"]
+
 
 
 

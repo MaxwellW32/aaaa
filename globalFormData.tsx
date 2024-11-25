@@ -151,7 +151,7 @@ export const globalFormData: globalFormDataType = {
             logo: "",
             opengraphLogo: "",
             email: "info@YourRestaurant.com",
-            workingHours: "Mon-Sun: 10am - 10pm",
+            workingHours: ["Mon-Sun: 10am - 10pm"],
             favicon: "",
             copyrightInformation: "© 2024 yourRestaurant. All rights reserved.",
         },

@@ -21,6 +21,8 @@ export default function Home() {
         </div>
       )}
 
+      <img alt="text" src={"http://localhost:3000/_next/static/media/defaultImage.4dd2abaa.jpg"} width={500} height={500} style={{ objectFit: "contain" }} />
+
       <div style={{ backgroundColor: "var(--color6)", zIndex: 0, position: "relative", display: "flex", flexWrap: "wrap", overflow: "clip", color: "var(--textColor2)", alignItems: "flex-start" }}>
         <div style={{ flex: "1 1 300px", zIndex: 1, padding: "var(--paddingLarge)", display: "grid", gap: "var(--gapSmall)" }}>
           <h1>Welcome</h1>
