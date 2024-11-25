@@ -13,6 +13,8 @@ export default function Home() {
 
   return (
     <main>
+      <p style={{ whiteSpace: "pre" }}>{JSON.stringify(globalFormDataJotai.linkedData, null, 2)}</p>
+
       {globalFormDataJotai.specificData.pages.home.section1.fieldType === "section" && globalFormDataJotai.specificData.pages.home.section1.using && (
         <div>
           <p>{globalFormDataJotai.specificData.pages.home.section1.inputs.text1.value}</p>
