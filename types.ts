@@ -86,8 +86,6 @@ export type linkedDataType = z.infer<typeof linkedDataSchema>
 
 
 
-
-
 //start copy specific data on template//
 // Input Type Schema
 const inputTypeSchema = z.object({
