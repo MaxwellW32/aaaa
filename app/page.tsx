@@ -1,12 +1,11 @@
 "use client"
 import Image from "next/image";
-import oldLady from "@/public/localImages/old lady.png"
 import WhatAwaits from "@/components/whatAwaits/WhatAwaits";
 import Services from "@/components/services/Services";
 import ContactUs from "@/components/contact/ContactUs";
 import { useAtom } from "jotai";
 import { globalFormDataJotaiGlobal } from "@/jotai";
-
+import s from "@/public/localImages/defaultImage1.webp"
 export default function Home() {
   const [globalFormDataJotai,] = useAtom(globalFormDataJotaiGlobal)
 
@@ -26,9 +25,11 @@ export default function Home() {
           <p>At EverYoung Retirement Village, we believe life is meant to be cherished at every stage. Our vibrant, community-focused environment is designed to help you live your golden years to the fullest.</p>
         </div>
 
-        <div style={{ flex: "1 1 600px", zIndex: 1, minHeight: "400px", position: "relative" }}>
-          <Image alt="middle image" src={oldLady} priority={true} fill={true} style={{ objectFit: "cover", objectPosition: "bottom" }} />
-        </div>
+        {globalFormDataJotai.specificData.pages.home.section1.fieldType === "section" && globalFormDataJotai.specificData.pages.home.section1.inputs.image1.fieldType === "image" && (
+          <div style={{ flex: "1 1 600px", zIndex: 1, minHeight: "400px", position: "relative" }}>
+            <Image alt={globalFormDataJotai.specificData.pages.home.section1.inputs.image1.alt} src={globalFormDataJotai.specificData.pages.home.section1.inputs.image1.value} priority={true} fill={true} style={{ objectFit: "cover", objectPosition: "bottom" }} />
+          </div>
+        )}
 
         <div style={{ flex: "1 1 300px", zIndex: 1, padding: "var(--paddingLarge)", display: "grid", gap: "var(--gapSmall)", alignItems: "flex-start" }}>
           <p>Whether you&apos;re seeking relaxation, new friendships, or exciting activities, this is the perfect place to call home.</p>

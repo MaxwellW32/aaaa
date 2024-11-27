@@ -134,13 +134,21 @@ export const globalFormData: globalFormDataType = {
                         text2: {
                             value: "ipsum",
                             fieldType: "input",
-
                         },
                         text3: {
                             value: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae doloremque qui laudantium harum explicabo nostrum dolorum, quibusdam totam nulla praesentium nemo ex aperiam ad, sit eum doloribus animi natus tenetur.",
                             fieldType: "textarea",
-
                         },
+                        image1: {
+                            fieldType: "image",
+                            alt: "middle image",
+                            value: "/localImages/old lady.png",
+                        },
+                        image2: {
+                            fieldType: "image",
+                            alt: "contact us",
+                            value: "/localImages/defaultImage1.webp",
+                        }
                     },
                     fieldType: "section",
                     using: true,

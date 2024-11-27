@@ -1,16 +1,25 @@
+"use client"
+//reform
 import Image from "next/image";
 import styles from "./styles.module.css"
-import defaultImage from "@/public/localImages/defaultImage1.webp"
 import Socials from "../socials/Socials";
 import { contactComponentType } from "@/types";
 import React from "react"
+import { useAtom } from "jotai";
+import { globalFormDataJotaiGlobal } from "@/jotai";
 
 export default function ContactUs({ contacts }: { contacts: contactComponentType["component"] }) {
+    const [globalFormDataJotai,] = useAtom(globalFormDataJotaiGlobal)
+
     return (
         <div style={{ display: "flex", flexWrap: "wrap", gap: "vaR(--gapSmall)", justifyContent: "center", alignItems: "center", width: "min(1000px, 100%)", margin: "0 auto" }}>
-            <div style={{ flex: "0 0 auto", position: "relative", width: "min(250px, 80vw)", aspectRatio: "1/1" }}>
-                <Image alt="contactUsImage" src={defaultImage} fill={true} sizes="(max-width: 200px) 100vw, (max-width: 600px) 50vw, 33vw" style={{ objectFit: "cover", borderRadius: "var(--radiusAmountLarge)", }} />
-            </div>
+
+            {globalFormDataJotai.specificData.pages.home.section1.fieldType === "section" && globalFormDataJotai.specificData.pages.home.section1.inputs.image2.fieldType === "image" && (
+                <div style={{ flex: "0 0 auto", position: "relative", width: "min(250px, 80vw)", aspectRatio: "1/1" }}>
+                    <Image alt={globalFormDataJotai.specificData.pages.home.section1.inputs.image2.alt} src={globalFormDataJotai.specificData.pages.home.section1.inputs.image2.value} fill={true} sizes="(max-width: 200px) 100vw, (max-width: 600px) 50vw, 33vw" style={{ objectFit: "cover", borderRadius: "var(--radiusAmountLarge)", }} />
+                </div>
+            )}
+
 
             <div style={{ flex: "1 1 300px", backgroundColor: "var(--bg1)", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))" }}>
                 {contacts.map((eachContactInfo, eachContactInfoIndex) => {
