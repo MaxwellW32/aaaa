@@ -7,7 +7,6 @@ import imgLogo from "@/public/localImages/old lady.png"
 
 //a prev one
 //woo more values above
-
 export const globalFormData: globalFormDataType = {
     linkedData: {
         siteInfo: {
@@ -261,7 +260,6 @@ export const globalFormData: globalFormDataType = {
         templateId: "aaaa",
     }
 }
-
 //woo more values below
 //another one
 
