@@ -1,12 +1,7 @@
 import { globalFormDataType } from "@/types";
-import imgLogo from "@/public/localImages/old lady.png"
 
-// import img_0000 from "@/public/old lady.png"
-// console.log(`$img`, img_0000);
-//another impoty
-
-//a prev one
 //woo more values above
+
 export const globalFormData: globalFormDataType = {
     linkedData: {
         siteInfo: {
@@ -15,7 +10,7 @@ export const globalFormData: globalFormDataType = {
             websiteName: "YourRestaurant",
             websiteTitle: "YourRestaurant`}` - Savor Every Bite",
             websiteDescription: "Discover mouth-watering dishes and exceptional dining experiences.",
-            logo: imgLogo.src,
+            logo: "/localImages/logo.png",
             opengraphLogo: "",
             email: "info@YourRestaurant.com",
             workingHours: ["Mon-Sun: 10am - 10pm"],
@@ -260,6 +255,6 @@ export const globalFormData: globalFormDataType = {
         templateId: "aaaa",
     }
 }
+
 //woo more values below
-//another one
 
