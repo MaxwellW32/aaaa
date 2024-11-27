@@ -5,7 +5,6 @@ import Services from "@/components/services/Services";
 import ContactUs from "@/components/contact/ContactUs";
 import { useAtom } from "jotai";
 import { globalFormDataJotaiGlobal } from "@/jotai";
-import s from "@/public/localImages/defaultImage1.webp"
 export default function Home() {
   const [globalFormDataJotai,] = useAtom(globalFormDataJotaiGlobal)
 
