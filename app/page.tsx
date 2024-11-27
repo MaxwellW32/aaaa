@@ -1,7 +1,6 @@
 "use client"
-
 import Image from "next/image";
-import oldLady from "@/public/old lady.png"
+import oldLady from "@/public/localImages/old lady.png"
 import WhatAwaits from "@/components/whatAwaits/WhatAwaits";
 import Services from "@/components/services/Services";
 import ContactUs from "@/components/contact/ContactUs";
@@ -13,17 +12,7 @@ export default function Home() {
 
   return (
     <main>
-      <p style={{ whiteSpace: "pre" }}>{JSON.stringify(globalFormDataJotai.linkedData, null, 2)}</p>
-
-      {globalFormDataJotai.specificData.pages.home.section1.fieldType === "section" && globalFormDataJotai.specificData.pages.home.section1.using && (
-        <div>
-          <p>{globalFormDataJotai.specificData.pages.home.section1.inputs.text1.value}</p>
-          <p>{globalFormDataJotai.specificData.pages.home.section1.inputs.text2.value}</p>
-          <p>{globalFormDataJotai.specificData.pages.home.section1.inputs.text3.value}</p>
-        </div>
-      )}
-
-      <img alt="text" src={"http://localhost:3000/_next/static/media/defaultImage.4dd2abaa.jpg"} width={500} height={500} style={{ objectFit: "contain" }} />
+      <img src={globalFormDataJotai.linkedData.siteInfo.logo} />
 
       <div style={{ backgroundColor: "var(--color6)", zIndex: 0, position: "relative", display: "flex", flexWrap: "wrap", overflow: "clip", color: "var(--textColor2)", alignItems: "flex-start" }}>
         <div style={{ flex: "1 1 300px", zIndex: 1, padding: "var(--paddingLarge)", display: "grid", gap: "var(--gapSmall)" }}>

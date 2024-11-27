@@ -1,10 +1,10 @@
 "use client"
 import React, { useState } from 'react'
-import Logo from "@/public/logo.png"
 import { menuItem } from '@/types'
 import styles from "./style.module.css"
 import Link from 'next/link'
 import Image from 'next/image'
+import Logo from '../logo/Logo'
 
 const menuItems: menuItem[] = [
     {
@@ -49,7 +49,7 @@ export default function Nav() {
 function ShowOnDesktop({ menuItems }: { menuItems: menuItem[] }) {
     return (
         <nav className={`${styles.nav} ${styles.desktop}`}>
-            <Image alt='logo' src={Logo} height={140} width={140} style={{ objectFit: "contain" }} />
+            <Logo />
 
             <DisplayMenu menuItems={menuItems} />
 
@@ -67,7 +67,7 @@ function ShowOnMobile({ menuItems }: { menuItems: menuItem[] }) {
 
     return (
         <nav className={`${styles.nav} ${styles.mobile}`}>
-            <Image alt='logo' src={Logo} height={140} width={140} style={{ objectFit: "contain" }} />
+            <Logo />
 
             <div>
                 {/* bar button svg */}

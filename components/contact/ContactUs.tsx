@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./styles.module.css"
-import defaultImage from "@/public/defaultImage1.webp"
+import defaultImage from "@/public/localImages/defaultImage1.webp"
 import Socials from "../socials/Socials";
 import { contactComponentType } from "@/types";
 import React from "react"
