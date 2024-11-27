@@ -14,7 +14,7 @@ export const globalFormData: globalFormDataType = {
             phone: "(876)123-4567",
             address: "123 Flavor Street, Culinary City, Foodland",
             websiteName: "YourRestaurant",
-            websiteTitle: "YourRestaurant - Savor Every Bite",
+            websiteTitle: "YourRestaurant`}` - Savor Every Bite",
             websiteDescription: "Discover mouth-watering dishes and exceptional dining experiences.",
             logo: imgLogo.src,
             opengraphLogo: "",

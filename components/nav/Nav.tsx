@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { menuItem } from '@/types'
 import styles from "./style.module.css"
 import Link from 'next/link'
-import Image from 'next/image'
 import Logo from '../logo/Logo'
 
 const menuItems: menuItem[] = [
