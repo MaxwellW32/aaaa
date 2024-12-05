@@ -122,6 +122,7 @@ const videoTypeSchema = z.object({
     label: z.string().optional(),
     required: z.boolean().optional(),
     fieldType: z.literal("video"),
+
     value: z.string(),
 });
 export type videoType = z.infer<typeof videoTypeSchema>
@@ -131,6 +132,8 @@ const linkTypeSchema = z.object({
     label: z.string().optional(),
     required: z.boolean().optional(),
     fieldType: z.literal("link"),
+
+    text: z.string(),
     value: z.string(),
 });
 export type linkType = z.infer<typeof linkTypeSchema>
@@ -141,6 +144,7 @@ const numberTypeSchema = z.object({
     placeHolder: z.string().optional(),
     required: z.boolean().optional(),
     fieldType: z.literal("number"),
+
     value: z.number(),
 });
 export type numberType = z.infer<typeof numberTypeSchema>
@@ -150,6 +154,7 @@ const svgTypeSchema = z.object({
     label: z.string().optional(),
     required: z.boolean().optional(),
     fieldType: z.literal("svg"),
+    color: z.string(),
     value: z.string(),
 });
 export type svgType = z.infer<typeof svgTypeSchema>
@@ -176,7 +181,7 @@ const sectionTypeSchema = z.object({
     ),
 
     using: z.boolean(),
-    fieldType: z.literal("section").optional(),
+    fieldType: z.literal("section"),
 })
 export type sectionType = z.infer<typeof sectionTypeSchema>
 
@@ -195,17 +200,11 @@ const contactComponentTypeSchema = z.object({ //section
 })
 export type contactComponentType = z.infer<typeof contactComponentTypeSchema>
 
-const pageSectionUnionSchema = z.union([
-    sectionTypeSchema,
-    contactComponentTypeSchema
-]);
-
+const pageSectionUnionSchema = z.union([sectionTypeSchema, contactComponentTypeSchema]);
 
 export const specificDataSchema = z.object({
-    pages: z.record(
-        z.string(), // key for each page
-        z.record(
-            z.string(), // key for each section or component
+    pages: z.record(z.string(), // page key
+        z.record(z.string(), // section / component key
             pageSectionUnionSchema
         )
     ),

@@ -13,10 +13,9 @@ export default function ContactUs({ contacts }: { contacts: contactComponentType
 
     return (
         <div style={{ display: "flex", flexWrap: "wrap", gap: "vaR(--gapSmall)", justifyContent: "center", alignItems: "center", width: "min(1000px, 100%)", margin: "0 auto" }}>
-
-            {globalFormDataJotai.specificData.pages.home.section1.fieldType === "section" && globalFormDataJotai.specificData.pages.home.section1.inputs.image2.fieldType === "image" && (
+            {globalFormDataJotai.specificData.pages.home[1].fieldType === "section" && globalFormDataJotai.specificData.pages.home[1].inputs.i.fieldType === "image" && (
                 <div style={{ flex: "0 0 auto", position: "relative", width: "min(250px, 80vw)", aspectRatio: "1/1" }}>
-                    <Image alt={globalFormDataJotai.specificData.pages.home.section1.inputs.image2.alt} src={globalFormDataJotai.specificData.pages.home.section1.inputs.image2.value} fill={true} sizes="(max-width: 200px) 100vw, (max-width: 600px) 50vw, 33vw" style={{ objectFit: "cover", borderRadius: "var(--radiusAmountLarge)", }} />
+                    <Image alt={globalFormDataJotai.specificData.pages.home[1].inputs.i.alt} src={globalFormDataJotai.specificData.pages.home[1].inputs.i.value} fill={true} sizes="(max-width: 200px) 100vw, (max-width: 600px) 50vw, 33vw" style={{ objectFit: "cover", borderRadius: "var(--radiusAmountLarge)", }} />
                 </div>
             )}
 

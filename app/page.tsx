@@ -6,12 +6,39 @@ import Services from "@/components/services/Services";
 import ContactUs from "@/components/contact/ContactUs";
 import { useAtom } from "jotai";
 import { globalFormDataJotaiGlobal } from "@/jotai";
+import Link from "next/link";
 
 export default function Home() {
   const [globalFormDataJotai,] = useAtom(globalFormDataJotaiGlobal)
 
   return (
     <main>
+      {globalFormDataJotai.specificData.pages.home[1].using && globalFormDataJotai.specificData.pages.home[1].fieldType === "section" && (
+        <>
+          <p>{globalFormDataJotai.specificData.pages.home[1].inputs.a.value}</p>
+
+          <p>{globalFormDataJotai.specificData.pages.home[1].inputs.b.value}</p>
+
+          {globalFormDataJotai.specificData.pages.home[1].inputs.c.fieldType === "image" && (
+            <Image alt={globalFormDataJotai.specificData.pages.home[1].inputs.c.alt} src={globalFormDataJotai.specificData.pages.home[1].inputs.c.value} width={200} height={200} style={{ objectFit: "contain" }} />
+          )}
+
+          {globalFormDataJotai.specificData.pages.home[1].inputs.d.fieldType === "video" && (
+            <video src={globalFormDataJotai.specificData.pages.home[1].inputs.d.value} />
+          )}
+
+          {globalFormDataJotai.specificData.pages.home[1].inputs.e.fieldType === "link" && (
+            <Link href={globalFormDataJotai.specificData.pages.home[1].inputs.e.value}>{globalFormDataJotai.specificData.pages.home[1].inputs.e.text}</Link>
+          )}
+
+          <p>{globalFormDataJotai.specificData.pages.home[1].inputs.f.value}</p>
+
+          {globalFormDataJotai.specificData.pages.home[1].inputs.g.fieldType === "svg" && (
+            <Image alt={"svg"} src={globalFormDataJotai.specificData.pages.home[1].inputs.g.value} width={20} height={20} style={{ objectFit: "contain" }} />
+          )}
+        </>
+      )}
+
       <div style={{ backgroundColor: "var(--color6)", zIndex: 0, position: "relative", display: "flex", flexWrap: "wrap", overflow: "clip", color: "var(--textColor2)", alignItems: "flex-start" }}>
         <div style={{ flex: "1 1 300px", zIndex: 1, padding: "var(--paddingLarge)", display: "grid", gap: "var(--gapSmall)" }}>
           <h1>Welcome</h1>
@@ -24,9 +51,9 @@ export default function Home() {
           <p>At EverYoung Retirement Village, we believe life is meant to be cherished at every stage. Our vibrant, community-focused environment is designed to help you live your golden years to the fullest.</p>
         </div>
 
-        {globalFormDataJotai.specificData.pages.home.section1.fieldType === "section" && globalFormDataJotai.specificData.pages.home.section1.inputs.image1.fieldType === "image" && (
+        {globalFormDataJotai.specificData.pages.home[1].fieldType === "section" && globalFormDataJotai.specificData.pages.home[1].inputs.h.fieldType === "image" && (
           <div style={{ flex: "1 1 600px", zIndex: 1, minHeight: "400px", position: "relative" }}>
-            <Image alt={globalFormDataJotai.specificData.pages.home.section1.inputs.image1.alt} src={globalFormDataJotai.specificData.pages.home.section1.inputs.image1.value} priority={true} fill={true} style={{ objectFit: "cover", objectPosition: "bottom" }} />
+            <Image alt={globalFormDataJotai.specificData.pages.home[1].inputs.h.alt} src={globalFormDataJotai.specificData.pages.home[1].inputs.h.value} priority={true} fill={true} style={{ objectFit: "cover", objectPosition: "bottom" }} />
           </div>
         )}
 
@@ -149,9 +176,9 @@ export default function Home() {
         </div>
       </section>
 
-      {globalFormDataJotai.specificData.pages.home.section2.fieldType === "contactComponent" && globalFormDataJotai.specificData.pages.home.section2.using && (
+      {globalFormDataJotai.specificData.pages.home[2].fieldType === "contactComponent" && globalFormDataJotai.specificData.pages.home[2].using && (
         <section style={{ backgroundColor: "var(--color5)" }}>
-          <ContactUs contacts={globalFormDataJotai.specificData.pages.home.section2.component} />
+          <ContactUs contacts={globalFormDataJotai.specificData.pages.home[2].component} />
         </section>
       )}
     </main>
