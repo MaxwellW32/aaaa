@@ -6,36 +6,14 @@ import Services from "@/components/services/Services";
 import ContactUs from "@/components/contact/ContactUs";
 import { useAtom } from "jotai";
 import { globalFormDataJotaiGlobal } from "@/jotai";
-import Link from "next/link";
 
 export default function Home() {
   const [globalFormDataJotai,] = useAtom(globalFormDataJotaiGlobal)
-
   return (
     <main>
-      {globalFormDataJotai.specificData.pages.home[1].using && globalFormDataJotai.specificData.pages.home[1].fieldType === "section" && (
+      {globalFormDataJotai.specificData.components.intro && (
         <>
-          <p>{globalFormDataJotai.specificData.pages.home[1].inputs.a.value}</p>
 
-          <p>{globalFormDataJotai.specificData.pages.home[1].inputs.b.value}</p>
-
-          {globalFormDataJotai.specificData.pages.home[1].inputs.c.fieldType === "image" && (
-            <Image alt={globalFormDataJotai.specificData.pages.home[1].inputs.c.alt} src={globalFormDataJotai.specificData.pages.home[1].inputs.c.value} width={200} height={200} style={{ objectFit: "contain" }} />
-          )}
-
-          {globalFormDataJotai.specificData.pages.home[1].inputs.d.fieldType === "video" && (
-            <video src={globalFormDataJotai.specificData.pages.home[1].inputs.d.value} />
-          )}
-
-          {globalFormDataJotai.specificData.pages.home[1].inputs.e.fieldType === "link" && (
-            <Link href={globalFormDataJotai.specificData.pages.home[1].inputs.e.value}>{globalFormDataJotai.specificData.pages.home[1].inputs.e.text}</Link>
-          )}
-
-          <p>{globalFormDataJotai.specificData.pages.home[1].inputs.f.value}</p>
-
-          {globalFormDataJotai.specificData.pages.home[1].inputs.g.fieldType === "svg" && (
-            <Image alt={"svg"} src={globalFormDataJotai.specificData.pages.home[1].inputs.g.value} width={20} height={20} style={{ objectFit: "contain" }} />
-          )}
         </>
       )}
 
@@ -51,11 +29,9 @@ export default function Home() {
           <p>At EverYoung Retirement Village, we believe life is meant to be cherished at every stage. Our vibrant, community-focused environment is designed to help you live your golden years to the fullest.</p>
         </div>
 
-        {globalFormDataJotai.specificData.pages.home[1].fieldType === "section" && globalFormDataJotai.specificData.pages.home[1].inputs.h.fieldType === "image" && (
-          <div style={{ flex: "1 1 600px", zIndex: 1, minHeight: "400px", position: "relative" }}>
-            <Image alt={globalFormDataJotai.specificData.pages.home[1].inputs.h.alt} src={globalFormDataJotai.specificData.pages.home[1].inputs.h.value} priority={true} fill={true} style={{ objectFit: "cover", objectPosition: "bottom" }} />
-          </div>
-        )}
+        <div style={{ flex: "1 1 600px", zIndex: 1, minHeight: "400px", position: "relative" }}>
+          <Image alt={"main image"} src={"/localImages/old lady.png"} priority={true} fill={true} style={{ objectFit: "cover", objectPosition: "bottom" }} />
+        </div>
 
         <div style={{ flex: "1 1 300px", zIndex: 1, padding: "var(--paddingLarge)", display: "grid", gap: "var(--gapSmall)", alignItems: "flex-start" }}>
           <p>Whether you&apos;re seeking relaxation, new friendships, or exciting activities, this is the perfect place to call home.</p>
@@ -176,9 +152,9 @@ export default function Home() {
         </div>
       </section>
 
-      {globalFormDataJotai.specificData.pages.home[2].fieldType === "contactComponent" && globalFormDataJotai.specificData.pages.home[2].using && (
+      {globalFormDataJotai.specificData.components.contact.using && (
         <section style={{ backgroundColor: "var(--color5)" }}>
-          <ContactUs contacts={globalFormDataJotai.specificData.pages.home[2].component} />
+          <ContactUs contacts={globalFormDataJotai.specificData.components.contact.contacts} />
         </section>
       )}
     </main>
