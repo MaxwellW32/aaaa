@@ -11,7 +11,7 @@ export default function Home() {
   const [globalFormDataJotai,] = useAtom(globalFormDataJotaiGlobal)
   return (
     <main>
-      {globalFormDataJotai.specificData.components.intro && (
+      {globalFormDataJotai.specificData.components.intro.using && (
         <>
 
         </>
