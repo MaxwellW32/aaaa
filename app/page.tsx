@@ -6,14 +6,13 @@ import Services from "@/components/services/Services";
 import ContactUs from "@/components/contact/ContactUs";
 import { useAtom } from "jotai";
 import { globalFormDataJotaiGlobal } from "@/jotai";
-import Link from "next/link";
 
 export default function Home() {
   const [globalFormDataJotai,] = useAtom(globalFormDataJotaiGlobal)
 
   return (
     <main>
-      {globalFormDataJotai.specificData.pages.home[1].using && globalFormDataJotai.specificData.pages.home[1].fieldType === "section" && (
+      {/* {globalFormDataJotai.specificData.pages.home[1].using && globalFormDataJotai.specificData.pages.home[1].fieldType === "section" && (
         <>
           <p>{globalFormDataJotai.specificData.pages.home[1].inputs.a.value}</p>
 
@@ -37,7 +36,7 @@ export default function Home() {
             <Image alt={"svg"} src={globalFormDataJotai.specificData.pages.home[1].inputs.g.value} width={20} height={20} style={{ objectFit: "contain" }} />
           )}
         </>
-      )}
+      )} */}
 
       <div style={{ backgroundColor: "var(--color6)", zIndex: 0, position: "relative", display: "flex", flexWrap: "wrap", overflow: "clip", color: "var(--textColor2)", alignItems: "flex-start" }}>
         <div style={{ flex: "1 1 300px", zIndex: 1, padding: "var(--paddingLarge)", display: "grid", gap: "var(--gapSmall)" }}>
