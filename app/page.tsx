@@ -6,55 +6,42 @@ import Services from "@/components/services/Services";
 import ContactUs from "@/components/contact/ContactUs";
 import { useAtom } from "jotai";
 import { globalFormDataJotaiGlobal } from "@/jotai";
+import type { ImageProps } from 'next/image';
 
 export default function Home() {
   const [globalFormDataJotai,] = useAtom(globalFormDataJotaiGlobal)
 
   return (
     <main>
-      {/* {globalFormDataJotai.specificData.pages.home[1].using && globalFormDataJotai.specificData.pages.home[1].fieldType === "section" && (
-        <>
-          <p>{globalFormDataJotai.specificData.pages.home[1].inputs.a.value}</p>
-
-          <p>{globalFormDataJotai.specificData.pages.home[1].inputs.b.value}</p>
-
-          {globalFormDataJotai.specificData.pages.home[1].inputs.c.fieldType === "image" && (
-            <Image alt={globalFormDataJotai.specificData.pages.home[1].inputs.c.alt} src={globalFormDataJotai.specificData.pages.home[1].inputs.c.value} width={200} height={200} style={{ objectFit: "contain" }} />
-          )}
-
-          {globalFormDataJotai.specificData.pages.home[1].inputs.d.fieldType === "video" && (
-            <video src={globalFormDataJotai.specificData.pages.home[1].inputs.d.value} />
-          )}
-
-          {globalFormDataJotai.specificData.pages.home[1].inputs.e.fieldType === "link" && (
-            <Link href={globalFormDataJotai.specificData.pages.home[1].inputs.e.value}>{globalFormDataJotai.specificData.pages.home[1].inputs.e.text}</Link>
-          )}
-
-          <p>{globalFormDataJotai.specificData.pages.home[1].inputs.f.value}</p>
-
-          {globalFormDataJotai.specificData.pages.home[1].inputs.g.fieldType === "svg" && (
-            <Image alt={"svg"} src={globalFormDataJotai.specificData.pages.home[1].inputs.g.value} width={20} height={20} style={{ objectFit: "contain" }} />
-          )}
-        </>
-      )} */}
+      {globalFormDataJotai.specificData.pages.home.firstSection.fieldType === "section" &&
+        globalFormDataJotai.specificData.pages.home.firstSection.using && (
+          <>
+            <h1 {...globalFormDataJotai.specificData.pages.home.firstSection.inputs.heading1.props}>{globalFormDataJotai.specificData.pages.home.firstSection.inputs.heading1.value}</h1>
+            <p {...globalFormDataJotai.specificData.pages.home.firstSection.inputs.paragraph1.props}>{globalFormDataJotai.specificData.pages.home.firstSection.inputs.paragraph1.value}</p>
+          </>
+        )}
 
       <div style={{ backgroundColor: "var(--color6)", zIndex: 0, position: "relative", display: "flex", flexWrap: "wrap", overflow: "clip", color: "var(--textColor2)", alignItems: "flex-start" }}>
         <div style={{ flex: "1 1 300px", zIndex: 1, padding: "var(--paddingLarge)", display: "grid", gap: "var(--gapSmall)" }}>
           <h1>Welcome</h1>
 
+          <img width={2000} />
           <div>
             <p>to EverYoung Retirement Village</p>
+
             <b>&mdash; Where Every Day is a New Beginning!</b>
           </div>
 
           <p>At EverYoung Retirement Village, we believe life is meant to be cherished at every stage. Our vibrant, community-focused environment is designed to help you live your golden years to the fullest.</p>
         </div>
 
-        {globalFormDataJotai.specificData.pages.home[1].fieldType === "section" && globalFormDataJotai.specificData.pages.home[1].inputs.h.fieldType === "image" && (
-          <div style={{ flex: "1 1 600px", zIndex: 1, minHeight: "400px", position: "relative" }}>
-            <Image alt={globalFormDataJotai.specificData.pages.home[1].inputs.h.alt} src={globalFormDataJotai.specificData.pages.home[1].inputs.h.value} priority={true} fill={true} style={{ objectFit: "cover", objectPosition: "bottom" }} />
-          </div>
-        )}
+        {globalFormDataJotai.specificData.pages.home.firstSection.fieldType === "section" &&
+          globalFormDataJotai.specificData.pages.home.firstSection.using &&
+          globalFormDataJotai.specificData.pages.home.firstSection.inputs.image1.type === "img" && (
+            <div style={{ flex: "1 1 600px", zIndex: 1, minHeight: "400px", position: "relative" }}>
+              <Image {...globalFormDataJotai.specificData.pages.home.firstSection.inputs.image1.props as ImageProps} />
+            </div>
+          )}
 
         <div style={{ flex: "1 1 300px", zIndex: 1, padding: "var(--paddingLarge)", display: "grid", gap: "var(--gapSmall)", alignItems: "flex-start" }}>
           <p>Whether you&apos;re seeking relaxation, new friendships, or exciting activities, this is the perfect place to call home.</p>
@@ -175,9 +162,9 @@ export default function Home() {
         </div>
       </section>
 
-      {globalFormDataJotai.specificData.pages.home[2].fieldType === "contactComponent" && globalFormDataJotai.specificData.pages.home[2].using && (
+      {globalFormDataJotai.specificData.pages.home.secondSection.fieldType === "contactComponent" && globalFormDataJotai.specificData.pages.home.secondSection.using && (
         <section style={{ backgroundColor: "var(--color5)" }}>
-          <ContactUs contacts={globalFormDataJotai.specificData.pages.home[2].component} />
+          <ContactUs contacts={globalFormDataJotai.specificData.pages.home.secondSection.component} />
         </section>
       )}
     </main>

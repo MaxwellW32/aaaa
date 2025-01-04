@@ -86,126 +86,84 @@ export type linkedDataType = z.infer<typeof linkedDataSchema>
 
 
 
+
+
 //start copy specific data on template//
-// Input Type Schema
-const inputTypeSchema = z.object({
-    label: z.string().optional(),
-    placeHolder: z.string().optional(),
-    required: z.boolean().optional(),
-    fieldType: z.literal("input"),
-    value: z.string(),
-});
-export type inputType = z.infer<typeof inputTypeSchema>
+const inputTypeSchema = z.enum(["textarea", "number"])
+export type inputTypeType = z.infer<typeof inputTypeSchema>
 
-// Textarea Type Schema
-const textareaTypeSchema = z.object({
-    label: z.string().optional(),
-    placeHolder: z.string().optional(),
-    required: z.boolean().optional(),
-    fieldType: z.literal("textarea"),
-    value: z.string(),
+const htmlAttributesSchema = z.object({
+    style: z.record(z.string()).optional(),
+    className: z.string().optional(),
+    id: z.string().optional(),
 });
-export type textareaType = z.infer<typeof textareaTypeSchema>
 
-// Image Type Schema
-const imageTypeSchema = z.object({
-    label: z.string().optional(),
-    required: z.boolean().optional(),
-    fieldType: z.literal("image"),
+const imgHTMLAttributesSchema = htmlAttributesSchema.extend({
+    src: z.string().min(1),
     alt: z.string(),
-    value: z.string(),
+    priority: z.boolean().optional(),
+    fill: z.boolean().optional(),
+    sizes: z.string().optional(),
+    width: z.union([z.number(), z.string()]).optional(),
+    height: z.union([z.number(), z.string()]).optional(),
 });
-export type imageType = z.infer<typeof imageTypeSchema>
 
-// Video Type Schema
-const videoTypeSchema = z.object({
-    label: z.string().optional(),
-    required: z.boolean().optional(),
-    fieldType: z.literal("video"),
 
-    value: z.string(),
-});
-export type videoType = z.infer<typeof videoTypeSchema>
 
-// Link Type Schema
-const linkTypeSchema = z.object({
-    label: z.string().optional(),
-    required: z.boolean().optional(),
-    fieldType: z.literal("link"),
 
-    text: z.string(),
-    value: z.string(),
-});
-export type linkType = z.infer<typeof linkTypeSchema>
 
-// Number Type Schema
-const numberTypeSchema = z.object({
-    label: z.string().optional(),
-    placeHolder: z.string().optional(),
-    required: z.boolean().optional(),
-    fieldType: z.literal("number"),
-
-    value: z.number(),
-});
-export type numberType = z.infer<typeof numberTypeSchema>
-
-// Svg Type Schema
-const svgTypeSchema = z.object({
-    label: z.string().optional(),
-    required: z.boolean().optional(),
-    fieldType: z.literal("svg"),
-    color: z.string(),
-    value: z.string(),
-});
-export type svgType = z.infer<typeof svgTypeSchema>
-
-// Form Input Type (Discriminated Union)
-const formInputTypeSchema = z.union([
-    inputTypeSchema,
-    textareaTypeSchema,
-    imageTypeSchema,
-    videoTypeSchema,
-    linkTypeSchema,
-    numberTypeSchema,
-    svgTypeSchema
+// Define the union schema for propsObj
+const propsObjSchema = z.union([
+    z.object({
+        type: z.literal("html"),
+        props: htmlAttributesSchema,
+        value: z.string(),
+        inputType: inputTypeSchema.optional()
+    }),
+    z.object({
+        type: z.literal("img"),
+        props: imgHTMLAttributesSchema,
+        value: z.literal(""),
+    }),
 ]);
-export type formInputType = z.infer<typeof formInputTypeSchema>
 
-//section type 
-const sectionTypeSchema = z.object({
-    label: z.string(),
+export type propsObjSchemaType = z.infer<typeof propsObjSchema>
+export type propsObjType = { type: "html", value: string, props: React.HTMLAttributes<HTMLElement>, inputType?: inputTypeType } | { type: "img", props: React.ImgHTMLAttributes<HTMLImageElement>, value: string }
 
-    inputs: z.record(
-        z.string(), // key for each input
-        formInputTypeSchema
-    ),
 
-    using: z.boolean(),
+
+
+
+export const sectionSchema = z.object({
+    inputs: z.record(z.string(), propsObjSchema),
     fieldType: z.literal("section"),
-})
-export type sectionType = z.infer<typeof sectionTypeSchema>
-
-//only for contact component
-const contactComponentTypeSchema = z.object({ //section 
-    label: z.string(),
-
-    component: z.array(z.object({
-        svg: formInputTypeSchema,
-        title: formInputTypeSchema,
-        texts: z.array(formInputTypeSchema)
-    })),
-
     using: z.boolean(),
-    fieldType: z.literal("contactComponent"),
 })
-export type contactComponentType = z.infer<typeof contactComponentTypeSchema>
+export type sectionType = z.infer<typeof sectionSchema>
 
-const pageSectionUnionSchema = z.union([sectionTypeSchema, contactComponentTypeSchema]);
+export const contactUsComponentSchema = z.object({
+    component: z.array(z.object({
+        svg: propsObjSchema,
+        title: propsObjSchema,
+        texts: z.array(propsObjSchema),
+    })),
+    fieldType: z.literal("contactComponent"),
+    using: z.boolean(),
+})
+export type contactUsComponentType = z.infer<typeof contactUsComponentSchema>
+
+export const pageSection = z.union([sectionSchema, contactUsComponentSchema])
+
+
+
+
 
 export const specificDataSchema = z.object({
-    pages: z.record(z.string(), // page key
-        z.record(z.string(), // section / component key
-            pageSectionUnionSchema
+    pages: z.record(
+        z.string(), // page key
+        z.record(
+            z.string(), // section key
+            pageSection
         )
     ),
     navLinks: z.object({
